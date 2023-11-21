@@ -10,3 +10,12 @@ export interface Cliente {
   cuit: number
 }
 
+export interface Proyecto {
+  id: string;
+  lider: string;
+  estado: string;
+  fechaInicio: string | null;
+  fechaFin: string | null;
+  nombre: string;
+}
+

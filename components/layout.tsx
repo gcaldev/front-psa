@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import SideBarItem from "./SidebarItem"
-import { ISidebarItem } from "./types"
+import Link from "next/link";
+import { useRouter } from "next/router";
+import SideBarItem from "./SidebarItem";
+import { ISidebarItem } from "./types";
 
 export default function Layout({ children }: { children: any }) {
   const menuItems: ISidebarItem[] = [
@@ -16,16 +16,20 @@ export default function Layout({ children }: { children: any }) {
     {
       href: "/usuarios",
       title: "Usuarios",
-    }
-  ]
+    },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <header className="bg-black sticky top-0 h-14 flex justify-center items-center font-semibold uppercase text-white">
-        Ejemplo pantalla
+      <header className="bg-black sticky top-0 h-14 flex  justify-between p-4 items-center font-semibold uppercase text-white">
+        <h1>PSA</h1>
+        <ul className="flex gap-8">
+          <li>Proyectos</li>
+          <li>Soporte</li>
+        </ul>
       </header>
-      <div className="flex flex-col md:flex-row flex-1">
-        <aside className="bg-grey-100 w-full md:w-60">
+      <div className="flex justify-center flex-1">
+        {/*<aside className="bg-grey-100 w-full md:w-60">
           <nav>
             <ul>
               {menuItems.map((item) => (
@@ -33,9 +37,11 @@ export default function Layout({ children }: { children: any }) {
               ))}
             </ul>
           </nav>
-        </aside>
-        <main className="flex-1">{children}</main>
+        </aside>*/}
+        <main className="flex-1 max-w-2xl flex justify-center py-8">
+          {children}
+        </main>
       </div>
     </div>
-  )
+  );
 }

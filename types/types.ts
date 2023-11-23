@@ -10,6 +10,11 @@ export interface Cliente {
   cuit: number
 }
 
+export interface Producto {
+  id: string
+  Producto: string
+}
+
 export interface Proyecto {
   id: string;
   lider: string;

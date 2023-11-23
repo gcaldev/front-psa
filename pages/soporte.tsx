@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import Link from "next/link";
 import ProductGridRow from "@/components/productGridRow";
 
 function HeaderItem({ title }: { title: string }) {
@@ -39,7 +40,7 @@ export default function Clientes() {
 
                                 <tbody>
                                 {list.map((Producto) => (
-                                    <ProductGridRow key={Producto['razon_social']} Producto={Producto} />
+                                    <ProductGridRow key={Producto['id']} Producto={Producto} />
                                 ))}
                                 </tbody>
                             </table>

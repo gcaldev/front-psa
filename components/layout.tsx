@@ -17,6 +17,10 @@ export default function Layout({ children }: { children: any }) {
       href: "/usuarios",
       title: "Usuarios",
     },
+    {
+      href: "/soporte",
+      title: "Soporte",
+    },
   ];
 
   return (
@@ -25,7 +29,11 @@ export default function Layout({ children }: { children: any }) {
         <h1>PSA</h1>
         <ul className="flex gap-8">
           <li>Proyectos</li>
-          <li>Soporte</li>
+          <li>
+            <Link href="/soporte">
+              SOPORTE
+            </Link>
+          </li>
         </ul>
       </header>
       <div className="flex justify-center flex-1">

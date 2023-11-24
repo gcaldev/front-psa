@@ -18,6 +18,10 @@ export default function Layout({ children }: { children: any }) {
       title: "Usuarios",
     },
     {
+      href: "/proyectos",
+      title: "Proyectos",
+    },
+    {
       href: "/soporte",
       title: "Soporte",
     },
@@ -28,7 +32,11 @@ export default function Layout({ children }: { children: any }) {
       <header className="bg-black sticky top-0 h-14 flex  justify-between p-4 items-center font-semibold uppercase text-white">
         <h1>PSA</h1>
         <ul className="flex gap-8">
-          <li>Proyectos</li>
+          <li>
+            <Link href="/proyectos">
+              PROYECTOS
+            </Link>
+          </li>
           <li>
             <Link href="/soporte">
               SOPORTE

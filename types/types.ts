@@ -15,6 +15,12 @@ export interface Producto {
   Producto: string
 }
 
+export interface Version {
+  id: string
+  productoId: string
+  version: string
+}
+
 export interface Proyecto {
   id: string;
   lider: string;

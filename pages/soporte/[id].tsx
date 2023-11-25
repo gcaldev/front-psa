@@ -1,16 +1,17 @@
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import ProductGridRow from "@/components/productGridRow";
+import VersionGridRow from "@/components/versionGridRow";
+
 
 function HeaderItem({ title }: { title: string }) {
     return <th className="px-6 py-3 text-sm text-left text-gray-500 border-b border-gray-200 bg-gray-50">{title}</th>
 }
 
-export default function Soporte() {
+export default function Version() {
     const [list, setList] = useState([])
 
     useEffect(() => {
-        fetch("https://my-json-server.typicode.com/nicolasgirardi/productos/productos")
+        fetch("https://my-json-server.typicode.com/nicolasgirardi/productos/productos/27/versiones")
             .then((res) => {
                 return res.json()
             })
@@ -25,7 +26,7 @@ export default function Soporte() {
 
             <div className="container max-w-7xl mx-auto mt-8">
                 <div className="mb-4">
-                    <h1 className="text-3xl font-bold decoration-gray-400">Productos</h1>
+                    <h1 className="text-3xl font-bold decoration-gray-400">Versiones</h1>
                 </div>
                 <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -33,14 +34,14 @@ export default function Soporte() {
                             <table className="min-w-full">
                                 <thead>
                                 <tr>
-                                    <HeaderItem title="ID" />
-                                    <HeaderItem title="Producto" />
+                                    <HeaderItem title="id" />
+                                    <HeaderItem title="Version" />
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                {list.map((Producto) => (
-                                    <ProductGridRow key={Producto['id']} Producto={Producto} />
+                                {list.map((Version) => (
+                                    <VersionGridRow key={Version['id']} Version={Version} />
                                 ))}
                                 </tbody>
                             </table>

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import VersionGridRow from "@/components/versionGridRow";
+import { useRouter } from 'next/router';
 
 
 function HeaderItem({ title }: { title: string }) {
@@ -9,15 +10,20 @@ function HeaderItem({ title }: { title: string }) {
 
 export default function Version() {
     const [list, setList] = useState([])
+    const router = useRouter();
 
     useEffect(() => {
-        fetch("https://my-json-server.typicode.com/nicolasgirardi/productos/productos/27/versiones")
-            .then((res) => {
-                return res.json()
-            })
-            .then((data) => {
-                setList(data)
-            })
+        if (router.query.id) {
+            // Construye la URL con la ID desde el router
+            const apiUrl = `https://my-json-server.typicode.com/nicolasgirardi/productos/productos/${router.query.id}/versiones`;
+            fetch(apiUrl)
+                .then((res) => {
+                    return res.json()
+                })
+                .then((data) => {
+                    setList(data)
+                })
+        }
     }, [])
 
     return (

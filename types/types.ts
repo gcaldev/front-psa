@@ -21,12 +21,25 @@ export interface Version {
   version: string
 }
 
+export interface Tarea {
+  project_id: string;
+  estado: "Sin Comenzar" | "En Progreso" | "Finalizado" | "Bloqueado";
+  fechaInicio: string;
+  fechaFin: string;
+  prioridad: string;
+  asignado: string;
+  titulo: string;
+  id: string;
+  descripcion: string;
+}
+
+
 export interface Proyecto {
   id: string;
   lider: string;
   estado: string;
-  fechaInicio: string | null;
-  fechaFin: string | null;
   nombre: string;
+  fechaFin?: string;
+  fechaInicio?: string;
 }
 

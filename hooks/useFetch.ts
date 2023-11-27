@@ -1,23 +1,33 @@
 import { MANY_PROJECTS } from "@/mocks/projects";
 import { useEffect, useState } from "react";
 
-type IDataFetching<T> = {
+type IDataState<T> = {
     data: T | null;
     loading: boolean;
-    error: any
+    error: any;
 }
+
+type IDataFetching<T> = IDataState<T> & { fetchData: Function };
 
 /**
  * Hook encargado de realizar las peticiones y facilitar la información devuelta
  */
-const useFetch = <T>(url: string,method = "GET"): IDataFetching<T> => {
-    const [dataState, setDataState] = useState<IDataFetching<T>>({
+const useFetch = <T>(url?: string,method = "GET",initial = true): IDataFetching<T> => {
+    const [dataState, setDataState] = useState<IDataState<T>>({
       data: null,
       loading: true,
-      error: null
+      error: null,
   });
 
+
   useEffect(()=> {
+    if(initial && url){
+      fetchData(url,method);
+    }
+  },[]);
+
+
+  const fetchData = (url: string,method = "GET") => {
     const options = {
         method,
         headers: {
@@ -41,10 +51,11 @@ const useFetch = <T>(url: string,method = "GET"): IDataFetching<T> => {
         data: null,
         loading: false,
         error: err
-    })))
-  },[]);
-
-  return dataState
+    })));
+  }
+  
+  return {...dataState,fetchData}
 }
+
 
 export default useFetch;

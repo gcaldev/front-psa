@@ -33,14 +33,10 @@ export default function Layout({ children }: { children: any }) {
         <h1>PSA</h1>
         <ul className="flex gap-8">
           <li>
-            <Link href="/proyectos">
-              PROYECTOS
-            </Link>
+            <Link href="/proyectos">PROYECTOS</Link>
           </li>
           <li>
-            <Link href="/soporte">
-              SOPORTE
-            </Link>
+            <Link href="/soporte">SOPORTE</Link>
           </li>
         </ul>
       </header>

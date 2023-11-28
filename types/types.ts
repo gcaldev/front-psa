@@ -20,7 +20,17 @@ export interface Version {
   productoId: string
   version: string
 }
-
+export interface Ticket {
+  id_ticket: string
+  nombre: string
+  descripcion: string
+  fecha_de_creacion: string
+  estado: string
+  severidad: string
+  prioridad: string
+  cliente: string
+  asignado: string
+}
 export interface Tarea {
   project_id: string;
   estado: "Sin Comenzar" | "En Progreso" | "Finalizado" | "Bloqueado";

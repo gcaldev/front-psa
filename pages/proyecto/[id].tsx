@@ -79,7 +79,7 @@ export default function ProjectLayout() {
   };
 
   return (
-    <div className="items-start">
+    <div>
       <div>
         <h1 className="text-3xl font-bold mb-10 mt-5">Información Del Proyecto</h1>
       </div>

@@ -12,10 +12,21 @@ const ProjectItem = ({
   fechaFin,
   nombre,
 }: Proyecto): JSX.Element => {
-  if (!fechaInicio || !fechaFin) {
-    // Hay que chequear si deberia poder no establecer fechas
-    return <></>;
-  }
+  const getPresentDates = () => {
+    if (fechaInicio && fechaFin) {
+      return (
+        <p className="m-0">
+          Fecha inicio y fin: {fechaInicio} - {fechaFin}
+        </p>
+      );
+    }
+    return (
+      <>
+        {fechaInicio && <p className="m-0">Fecha inicio: {fechaInicio}</p>}
+        {fechaFin && <p className="m-0">Fecha fin: {fechaFin}</p>}
+      </>
+    );
+  };
 
   return (
     <article
@@ -26,9 +37,7 @@ const ProjectItem = ({
         <p className="text-2xl">📈</p>
         <div className="flex gap-0 flex-col justify-start items-start text-sm font-semibold">
           <p className="m-0">Nombre: {nombre}</p>
-          <p className="m-0">
-            Fecha inicio y fin: {fechaInicio} - {fechaFin}
-          </p>
+          {getPresentDates()}
           <p className="m-0">Lider: {lider}</p>
         </div>
       </div>
@@ -51,7 +60,7 @@ export default function Projects() {
   const [searchName, setSearchName] = useState<string>("");
   const router = useRouter();
   const { data, error, loading } = useFetch<Proyecto[]>(
-    "https://proyectos-psa-api.free.beeceptor.com/proyectos"
+    "https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos"
   );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {

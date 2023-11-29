@@ -29,7 +29,8 @@ export interface Ticket {
   severidad: string
   prioridad: string
   cliente: string
-  asignado: string
+  asignado: string,
+  comentarios: string
   producto_id: string
   version_id: string
 }

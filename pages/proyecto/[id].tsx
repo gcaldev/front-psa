@@ -79,11 +79,14 @@ export default function ProjectLayout() {
   };
 
   return (
-    <div>
+    <div className="items-start">
       <div>
-        <p>Nombre proyecto</p>
+        <h1 className="text-3xl font-bold mb-10 mt-5">Información Del Proyecto</h1>
+      </div>
+      <div>
+        <p className="font-semibold mb-1">Nombre proyecto</p>
         <input
-          className="border"
+          className="border w-full px-1 mb-5 rounded"
           type="text"
           placeholder="Nombre..."
           onChange={(e: any) =>
@@ -93,9 +96,9 @@ export default function ProjectLayout() {
         />
       </div>
       <div>
-        <p>Fecha de inicio</p>
+        <p className="font-semibold mb-1">Fecha de inicio</p>
         <input
-          className="border"
+          className="border w-full px-1 mb-5 rounded"
           type="text"
           placeholder="Fecha de inicio..."
           disabled
@@ -103,9 +106,9 @@ export default function ProjectLayout() {
         />
       </div>
       <div>
-        <p>Fecha de finalización</p>
+        <p className="font-semibold mb-1">Fecha de finalización</p>
         <input
-          className="border"
+          className="border w-full px-1 mb-5 rounded"
           type="text"
           placeholder="Fecha de finalización..."
           onChange={(e: any) =>
@@ -114,8 +117,10 @@ export default function ProjectLayout() {
           value={projectInfo?.fechaFin}
         />
       </div>
-      <div>
+      <div className="flex mb-10">
+        <h1 className="font-semibold mr-1">Estado:</h1>
         <select
+          className="border rounded"
           onChange={(e) =>
             setProjectInfo({ ...projectInfo, estado: e.target.value })
           }
@@ -124,9 +129,10 @@ export default function ProjectLayout() {
           <option value="En progreso">En progreso</option>
           <option value="Finalizado">Finalizado</option>
         </select>
-      </div>
-      <div>
+
+        <h1 className="font-semibold mr-1 ml-20">Líder:</h1>
         <select
+          className="border rounded"
           onChange={(e) =>
             setProjectInfo({ ...projectInfo, lider: e.target.value })
           }
@@ -137,18 +143,18 @@ export default function ProjectLayout() {
         </select>
       </div>
       <Link
-        className="bg-zinc-50	hover:bg-zinc-200 text-black font-bold py-1 px-4"
+        className="bg-zinc-200	hover:bg-zinc-100 text-black font-bold py-1 px-4 rounded mr-20"
         href={`/tablero/${encodeURIComponent(projectId)}`}
       >
         Ver tablero
       </Link>
       <Link
-        className="bg-zinc-50	hover:bg-zinc-200 text-black font-bold py-1 px-4"
+        className="bg-zinc-0	hover:bg-zinc-50 text-black font-bold py-1 px-4"
         href={`/proyectos`}
       >
         Volver
       </Link>
-      <button onClick={handleUpdateProject}>Actualizar</button>
+      <button className="bg-sky-500 hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded" onClick={handleUpdateProject}>Actualizar</button>
     </div>
   );
 }

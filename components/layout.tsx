@@ -29,14 +29,14 @@ export default function Layout({ children }: { children: any }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <header className="bg-black sticky top-0 h-14 flex  justify-between p-4 items-center font-semibold uppercase text-white">
+      <header className="bg-sky-500 sticky top-0 h-14 flex  justify-between p-4 items-center font-semibold uppercase text-white">
         <h1>PSA</h1>
-        <ul className="flex gap-8">
+        <ul className="flex">
           <li>
-            <Link href="/proyectos">PROYECTOS</Link>
+            <Link className="hover:bg-sky-600 px-4 py-4" href="/proyectos">PROYECTOS</Link>
           </li>
           <li>
-            <Link href="/soporte">SOPORTE</Link>
+            <Link className="hover:bg-sky-600 px-4 py-4" href="/soporte">SOPORTE</Link>
           </li>
         </ul>
       </header>
@@ -50,7 +50,7 @@ export default function Layout({ children }: { children: any }) {
             </ul>
           </nav>
         </aside>*/}
-        <main className="flex-1 max-w-2xl flex justify-center py-8">
+        <main className="flex-1 max-w-6xl flex justify-center py-8">
           {children}
         </main>
       </div>

@@ -31,12 +31,12 @@ export default function Layout({ children }: { children: any }) {
     <div className="min-h-screen flex flex-col bg-white">
       <header className="bg-sky-500 sticky top-0 h-14 flex  justify-between p-4 items-center font-semibold uppercase text-white">
         <h1>PSA</h1>
-        <ul className="flex gap-8">
+        <ul className="flex">
           <li>
-            <Link href="/proyectos">PROYECTOS</Link>
+            <Link className="hover:bg-sky-700 px-4 py-4" href="/proyectos">PROYECTOS</Link>
           </li>
           <li>
-            <Link href="/soporte">SOPORTE</Link>
+            <Link className="hover:bg-sky-700 px-4 py-4" href="/soporte">SOPORTE</Link>
           </li>
         </ul>
       </header>

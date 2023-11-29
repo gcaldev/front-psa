@@ -1,4 +1,4 @@
-import { MANY_PROJECTS } from "@/mocks/projects";
+import { MANY_PROJECTS, MANY_TASKS } from "@/mocks/projects";
 import { useEffect, useState } from "react";
 
 type IDataState<T> = {
@@ -26,8 +26,18 @@ const useFetch = <T>(url?: string,method = "GET",initial = true): IDataFetching<
     }
   },[]);
 
+  const fetchData = (url: string, method = "GET") => {
+    console.log(url,method)
+    setTimeout(() => {
+      console.log("Simulando llamada a la API con retardo de 1 segundo");
+      Promise.resolve(MANY_TASKS).then(
+        (res) => setDataState({ data: res as any, loading: false, error: null }),
+        (err) => setDataState({ data: null, loading: false, error: err })
+      );
+    }, 1000);    
+  }
 
-  const fetchData = (url: string,method = "GET") => {
+  const fetchDataa = (url: string,method = "GET") => {
     const options = {
         method,
         headers: {

@@ -83,21 +83,20 @@ export default function TableroLayout() {
   const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
-
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const url = `https://proyectos-psa-api.free.beeceptor.com/proyectos/${router.query.id}/tareas`;
+  console.log(data);
   useEffect(() => {
     if (router.isReady) {
-      const url = `https://proyectos-psa-api.free.beeceptor.com/proyectos/${router.query.id}/tareas`;
       fetchData(url);
     }
   }, [router.isReady]);
 
-  if (loading) {
+  if (loading || deleteLoading) {
     return <h1>Cargando...</h1>;
   }
 
   if (error) {
-    console.log("error????");
-    console.log(error);
     router.push("/error");
     return;
   }
@@ -112,10 +111,37 @@ export default function TableroLayout() {
     setSelectedTask(taskToOpen);
   };
 
-  const handleTaskDelete = async (id: string) => {
-    setShow(false);
-    setWantsToDelete(false);
-    setSelectedTask(null);
+  const handleTaskDelete = async (id?: string) => {
+    const closeModal = () => {
+      setShow(false);
+      setWantsToDelete(false);
+      setSelectedTask(null);
+    };
+
+    if (id) {
+      deleteTask(id, closeModal);
+    } else {
+      closeModal();
+    }
+  };
+
+  const deleteTask = (id: string, onSuccess?: Function) => {
+    const deleteUrl = `https://proyectos-psa-api.free.beeceptor.com/tareas/${id}`;
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    setDeleteLoading(true);
+    fetch(deleteUrl, options)
+      .then((res) => res.json())
+      .then((res) => {
+        setDeleteLoading(false);
+        fetchData();
+        onSuccess?.();
+      })
+      .catch((err) => router.push("/error"));
   };
 
   return (
@@ -216,7 +242,7 @@ export default function TableroLayout() {
           <div className="flex flex-1 justify-end mt-12 items-end gap-8 items-center">
             <button
               className="bg-red-500	hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-              onClick={() => selectedTask && handleTaskDelete(selectedTask.id)}
+              onClick={() => handleTaskDelete(selectedTask?.id)}
             >
               Confirmar
             </button>

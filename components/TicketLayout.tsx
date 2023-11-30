@@ -1,4 +1,4 @@
-import { Tarea } from "@/types/types";
+//import { Ticket } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -67,6 +67,7 @@ export default function TicketLayout({
     producto_id,
     version_id,  
   });
+  //const [resources, setResources] = useState<Ticket[]>([]);
   useEffect(() => {
     if (createsTicket) {
       return;

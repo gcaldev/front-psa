@@ -30,7 +30,7 @@ export interface Ticket {
   prioridad: string
   cliente: string
   asignado: string,
-  comentarios: string
+  //comentarios: string
   producto_id: string
   version_id: string
 }

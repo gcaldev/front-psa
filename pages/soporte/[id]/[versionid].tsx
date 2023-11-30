@@ -19,7 +19,7 @@ const ProjectItem = ({
     prioridad,
     cliente,
     asignado,
-    comentarios,
+    //comentarios,
     producto_id,
     version_id,
   }: Ticket): JSX.Element => {
@@ -73,10 +73,10 @@ const ProjectItem = ({
                         <span className= "  font-bold">Cliente </span>
                         <span>{cliente}</span>
                     </p>
-                    <p className="ml-5" >  
+                    {/* <p className="ml-5" >  
                         <span className= "font-bold">Comentarios </span>
                         <span>{comentarios}</span>
-                    </p>                
+                    </p>                 */}
                 </div>
             </div>
         </div>

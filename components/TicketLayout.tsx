@@ -57,7 +57,7 @@ export default function TicketLayout({
     nombre: "",
     id_ticket: "",
     descripcion: "",
-    comentarios: "",
+    //comentarios: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(!createsTicket);
   console.log({

@@ -10,7 +10,7 @@ export default function TicketLayout({
   //project_id,
 
   id_ticket ="",
-  //producto_id,
+  producto_id,
   version_id,
   
   // nombre,
@@ -25,7 +25,7 @@ export default function TicketLayout({
 }: {
   id_ticket?: string;
   //project_id: string;
-  //producto_id: string
+  producto_id: string
   version_id: string
 
   // nombre: string
@@ -44,7 +44,7 @@ export default function TicketLayout({
   const createsTicket = !id_ticket;
   const router = useRouter();
   const [taskInfo, setTaskInfo] = useState({
-    //producto_id,
+    producto_id,
     version_id,
     
     fecha_de_creacion: "",
@@ -64,7 +64,7 @@ export default function TicketLayout({
   const [isLoading, setIsLoading] = useState<boolean>(!createsTicket);
   console.log({
     id_ticket,
-    //producto_id,
+    producto_id,
     version_id,  
   });
   useEffect(() => {

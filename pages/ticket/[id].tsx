@@ -7,6 +7,7 @@ export default function UpdateTaskLayout() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [params, setParams] = useState({
     id: "",
+    producto_id:"",
     version_id: "",
   });
   useEffect(() => {
@@ -15,7 +16,10 @@ export default function UpdateTaskLayout() {
       setIsLoading(false);
       setParams({
         id: router.query.id as string,
-        version_id: router.query.project_id as string,
+        producto_id: router.query.producto_id as string,
+        version_id: router.query.version_id as string,
+
+
       });
     }
   }, [router.isReady]);

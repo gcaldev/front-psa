@@ -181,9 +181,13 @@ const ProjectItem = ({
             //no se como traer esos campos para q esten en este link
             //y LO MAS IMPORTANTE MANDARLOS AL TICKETLAYOUT.TSX q es donde
             // esta la logica de creacion con el post para el ticket
+
+            //  id: router.query.id as string,
+            //producto_id: router.query.producto_id as string,
+            //version_id: router.query.version_id as string,
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href={`/ticket/product_id=${router.query.id}`}
-          >
+            href={`/ticket?producto_id=${router.query.produto_id}?version_id=${router.query.version_id}`}
+            >
             Crear ticket ✚
           </Link>
         </div>

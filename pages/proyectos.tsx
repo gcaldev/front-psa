@@ -96,8 +96,8 @@ export default function Projects() {
   const currentList = filteredList ?? data;
 
   return (
-    <div className="flex-1">
-      <h1 className="text-3xl font-bold">Listado De Proyectos</h1>
+    <div className="flex-1 border-t-2">
+      <h1 className="text-3xl font-bold mt-3">Listado De Proyectos</h1>
       <div className="flex justify-between items-center pt-8">
         <form
           onSubmit={handleSearch}
@@ -122,7 +122,7 @@ export default function Projects() {
           Crear proyecto ✚
         </Link>
       </div>
-      <div className="mt-8 flex flex-col justify-center">
+      <div className="mt-8 flex flex-col justify-center border-t-2 border-b-2 py-2">
         {!currentList || currentList.length < 1 ? (
           <h1 className="self-center">
             No se encontraron proyectos con el nombre especificado

@@ -17,11 +17,11 @@ export default function UpdateTaskLayout() {
 
   if (isLoading) {
     return (
-      <div class="text-center py-40">
+      <div className="text-center py-40">
         <div role="status">
           <svg
             aria-hidden="true"
-            class="inline w-22 h-22 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            className="inline w-22 h-22 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export default function UpdateTaskLayout() {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
         <h1 className="text-2xl font-semibold mt-5">Cargando...</h1>
       </div>

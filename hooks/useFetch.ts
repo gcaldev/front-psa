@@ -1,4 +1,4 @@
-import { MANY_PROJECTS } from "@/mocks/projects";
+import { MANY_PROJECTS } from "@/mocks/proyectos";
 import { useEffect, useState } from "react";
 
 type IDataState<T> = {

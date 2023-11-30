@@ -33,10 +33,14 @@ export default function Layout({ children }: { children: any }) {
         <h1>PSA</h1>
         <ul className="flex">
           <li>
-            <Link className="hover:bg-sky-700 px-4 py-4" href="/proyectos">PROYECTOS</Link>
+            <Link className="hover:bg-sky-700 px-4 py-4" href="/proyectos">
+              PROYECTOS
+            </Link>
           </li>
           <li>
-            <Link className="hover:bg-sky-700 px-4 py-4" href="/soporte">SOPORTE</Link>
+            <Link className="hover:bg-sky-700 px-4 py-4" href="/soporte">
+              SOPORTE
+            </Link>
           </li>
         </ul>
       </header>

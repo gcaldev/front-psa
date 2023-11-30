@@ -14,7 +14,7 @@ export default function NotFoundLayout() {
       </h1>
       <Link
         className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-        href="/home"
+        href="/proyectos"
        >
         Volver a inicio
        </Link>

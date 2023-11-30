@@ -247,7 +247,7 @@ export default function TaskLayout({
       </div>
       <div></div>
       <div className="flex justify-end items-center gap-4 mt-8">
-        <Link href={`/tablero/${project_id}`}>Volver a tablero</Link>
+        <Link className="bg-zinc-0	hover:bg-zinc-100 text-black font-bold py-1 px-4 rounded" href={`/tablero/${project_id}`}>Volver a tablero</Link>
         <button
           className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
           onClick={handleTaskSubmit}

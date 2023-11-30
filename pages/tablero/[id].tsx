@@ -158,8 +158,8 @@ export default function TableroLayout() {
   return (
     <div className="w-screen h-full">
       <div className="w-screen p-4 h-full">
-        <div className="max-w-screen-xl mx-auto flex h-full flex-col">
-          <div className="flex justify-between items-end pt-8">
+        <div className="max-w-screen-xl mx-auto flex h-full flex-col border-b-2">
+          <div className="flex justify-between items-end pt-8 border-t-2">
             <h1 className="text-3xl font-bold">Tablero</h1>
             <Link
               className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
@@ -197,28 +197,42 @@ export default function TableroLayout() {
         </div>
       </div>
       <Modal
-        className={"h-[500px] w-[500px]"}
+        className={"h-[550px] w-[500px] border border-black p-4"}
         show={show && !wantsToDelete}
         onClick={() => {
           setShow(false);
           setSelectedTask(null);
         }}
       >
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex">
-
+        <div className="grid grid-cols-2 px-2 py-2 mt-2 border border-black p-4">
+          <div className="flex w-80 mb-5">
             <h2 className="col-span-2 text-2xl font-semibold">{selectedTask?.titulo}</h2>
           </div>
-          <p className="col-span-2">Descripcion: {selectedTask?.descripcion}</p>
-          <p>Estado: {selectedTask?.estado}</p>
-          <p>Prioridad: {selectedTask?.prioridad}</p>
+
+          <p className="col-span-2 font-semibold">Descripción</p>
+          <p className="col-span-2 mb-5">{selectedTask?.descripcion}</p>
+
+          <p className="font-semibold">Estado</p>
+          <p className="font-semibold">Prioridad</p>
+          <p className="mb-5">{selectedTask?.estado}</p>
+          <p className="mb-5">{selectedTask?.prioridad}</p>
+
           {selectedTask?.fechaInicio && (
-            <p>Fecha de inicio: {selectedTask.fechaInicio}</p>
+            <div>
+                <p className="font-semibold">Fecha de inicio</p>
+                <p className="mb-5">{selectedTask.fechaInicio}</p>
+            </div>
           )}
           {selectedTask?.fechaInicio && (
-            <p>Fecha de fin: {selectedTask.fechaFin}</p>
+            <div>
+                <p className="font-semibold">Fecha de fin</p>
+                <p className="mb-5">{selectedTask.fechaFin}</p>
+            </div>
           )}
-          <p className="col-span-2">Asignado: {selectedTask?.asignado}</p>
+          <div className="flex mb-5">
+              <p className="font-semibold mr-2">Asignada a</p>
+              <p className="col-span-2">{selectedTask?.asignado}</p>
+          </div>
         </div>
         <div className="flex flex-1 justify-end items-end gap-8">
           <button
@@ -238,7 +252,7 @@ export default function TableroLayout() {
         </div>
       </Modal>
       <Modal
-        className={"w-[500px] h-[300px]"}
+        className={"w-[500px] h-[360px] border border-black p-8"}
         show={wantsToDelete}
         onClick={() => {
           setShow(false);
@@ -247,15 +261,17 @@ export default function TableroLayout() {
         }}
       >
         <div className="flex flex-col">
+          <div className="border border-black p-4 mt-2">
           <p className="font-bold mb-4 mt-4 text-center">
             ¿Está seguro de que desea eliminar la tarea seleccionada?
           </p>
-          <p>
+          <p className="mb-5">
             Esta acción no se puede deshacer y toda la información asociada a
             esta tarea se perderá. Por favor, confirme su decisión antes de
             proceder.
           </p>
-          <div className="flex flex-1 justify-end mt-12 items-end gap-8 items-center">
+          </div>
+          <div className="flex flex-1 justify-end mt-7 items-end gap-8 items-center">
             <button
               className="bg-red-500	hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
               onClick={() => handleTaskDelete(selectedTask?.id)}

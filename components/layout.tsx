@@ -50,7 +50,7 @@ export default function Layout({ children }: { children: any }) {
             </ul>
           </nav>
         </aside>*/}
-        <main className="flex-1 max-w-2xl flex justify-center py-8">
+        <main className="flex-1 max-w-4xl flex justify-center py-8">
           {children}
         </main>
       </div>

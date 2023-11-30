@@ -194,7 +194,10 @@ export default function TableroLayout() {
         }}
       >
         <div className="grid grid-cols-2 gap-4">
-          <h2 className="col-span-2">Titulo: {selectedTask?.titulo}</h2>
+          <div className="flex">
+
+            <h2 className="col-span-2 text-2xl font-semibold">{selectedTask?.titulo}</h2>
+          </div>
           <p className="col-span-2">Descripcion: {selectedTask?.descripcion}</p>
           <p>Estado: {selectedTask?.estado}</p>
           <p>Prioridad: {selectedTask?.prioridad}</p>

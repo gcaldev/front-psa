@@ -30,7 +30,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
         "Content-Type": "application/json",
       },
     };
-    const url = `${PROJECT_MODULE_URL}/recursos`;
+    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/recursos`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -53,7 +53,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
         "Content-Type": "application/json",
       },
     };
-    const url = `${PROJECT_MODULE_URL}/proyectos/${router.query.id}`;
+    const url = `${PROJECT_MODULE_URL}/projects/${router.query.id}`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -84,16 +84,20 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
         fechaFin: body.fechaFin ?? undefined,
       }),
     };
-    const url = `${PROJECT_MODULE_URL}/proyectos/${id}`;
+    const url = createsProject
+      ? `${PROJECT_MODULE_URL}/projects`
+      : `${PROJECT_MODULE_URL}/projects/${id}`;
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
         const successPath = createsProject
-          ? `/proyecto-creado/${id}`
+          ? `/proyecto-creado/${res.id}`
           : `/proyecto-actualizado/${id}`;
         router.push(successPath);
       })
-      .catch((err) => router.push("/error"));
+      .catch((err) => {
+        router.push("/error");
+      });
   };
 
   if (isLoading) {

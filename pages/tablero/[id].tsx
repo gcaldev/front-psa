@@ -85,8 +85,8 @@ export default function TableroLayout() {
   const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  const url = `${PROJECT_MODULE_URL}/proyectos/${router.query.id}/tareas`;
-  console.log(data);
+  const url = `${PROJECT_MODULE_URL}/tasks/projects/${router.query.id}`;
+
   useEffect(() => {
     if (router.isReady) {
       fetchData(url);
@@ -150,7 +150,7 @@ export default function TableroLayout() {
   };
 
   const deleteTask = (id: string, onSuccess?: Function) => {
-    const deleteUrl = `${PROJECT_MODULE_URL}/tareas/${id}`;
+    const deleteUrl = `${PROJECT_MODULE_URL}/tasks/${id}`;
     const options = {
       method: "DELETE",
       headers: {
@@ -260,7 +260,7 @@ export default function TableroLayout() {
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
             href={`/tarea/${encodeURIComponent(
               selectedTask?.id ?? ""
-            )}?project_id=${selectedTask?.project_id}`}
+            )}?project_id=${selectedTask?.proyecto}`}
           >
             Editar
           </Link>

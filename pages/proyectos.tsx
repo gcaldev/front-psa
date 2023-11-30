@@ -61,7 +61,7 @@ export default function Projects() {
   const [searchName, setSearchName] = useState<string>("");
   const router = useRouter();
   const { data, error, loading } = useFetch<Proyecto[]>(
-    `${PROJECT_MODULE_URL}/proyectos`
+    `${PROJECT_MODULE_URL}/projects`
   );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {

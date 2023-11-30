@@ -16,7 +16,7 @@ export default function TaskLayout({
   const createsTask = !id;
   const router = useRouter();
   const [taskInfo, setTaskInfo] = useState({
-    project_id,
+    proyecto: project_id,
     fechaInicio: "",
     fechaFin: "",
     estado: DEFAULT_SELECT_VALUE,
@@ -42,7 +42,7 @@ export default function TaskLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `${PROJECT_MODULE_URL}/recursos`;
+    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/recursos`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -65,7 +65,7 @@ export default function TaskLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `${PROJECT_MODULE_URL}/tareas/${id}`;
+    const url = `${PROJECT_MODULE_URL}/tasks/${id}`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -121,15 +121,15 @@ export default function TaskLayout({
       },
       body: JSON.stringify(body),
     };
-    const url = `${PROJECT_MODULE_URL}/tareas/${id}`;
+    const url = `${PROJECT_MODULE_URL}/tasks/${id}`;
     console.log(options, "INFO");
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
         router.push(
           createsTask
-            ? `/tarea-creada/${taskInfo.project_id}`
-            : `/tarea-actualizada/${taskInfo.project_id}`
+            ? `/tarea-creada/${taskInfo.proyecto}`
+            : `/tarea-actualizada/${taskInfo.proyecto}`
         );
       })
       .catch((err) => router.push("/error"));

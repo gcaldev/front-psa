@@ -6,6 +6,8 @@ import { Ticket } from "@/types/types";
 import useFetch from "@/hooks/useFetch";
 
 
+//import TicketCreate from "@/Components/TicketCreate";
+
 
 const ProjectItem = ({
     id_ticket,
@@ -108,7 +110,11 @@ const ProjectItem = ({
     const [searchName, setSearchName] = useState<string>("");
     const router = useRouter();
     const { data, error, loading } = useFetch<Ticket[]>(
-      "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
+        
+        //el de render esta vacio NO TRAE NADA
+        //EL MYJSON TRAE UN TICKET CON TODOS CAMPOS Q DICEN STRING
+        "https://psa-prueba-2.onrender.com/tickets"
+        //"https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
     );
   
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -153,8 +159,19 @@ const ProjectItem = ({
           </form>
   
           <Link
+            
+            //PROBBLEMAAAA 
+            //no se mb como funca el router.query.id
+            // lo q hace ahora esto de abajo es redirigir a una pagina distinta
+            //en la url /tickets/{id de prodcto} y mustra la creacion del ticket
+            //en ppio no esta mal si dsps eso se guarda en el producto y verison 
+            //q corresponda cosa q entiendo s epuede hacer con los campos version_id
+            // y producto_id q tiene el ticket  definido.
+            //no se como traer esos campos para q esten en este link
+            //y LO MAS IMPORTANTE MANDARLOS AL TICKETLAYOUT.TSX q es donde
+            // esta la logica de creacion con el post para el ticket
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href="/proyecto"
+            href={`/ticket/product_id=${router.query.id}`}
           >
             Crear ticket ✚
           </Link>

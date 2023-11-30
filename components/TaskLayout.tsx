@@ -97,12 +97,16 @@ export default function TaskLayout({
       },
       body: JSON.stringify(body),
     };
-    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos/${id}`;
+    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/${id}`;
     console.log(options, "INFO");
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        router.push("/exito");
+        router.push(
+          createsTask
+            ? `/tarea-creada/${taskInfo.project_id}`
+            : `/tarea-actualizada/${taskInfo.project_id}`
+        );
       })
       .catch((err) => router.push("/error"));
   };

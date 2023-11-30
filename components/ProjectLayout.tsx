@@ -18,6 +18,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
     lider: DEFAULT_SELECT_VALUE,
   });
   const [resources, setResources] = useState<Recurso[]>([]);
+  const [originalProjectName, setOriginalProjectName] = useState<string>("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,6 +58,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
       .then((res) => res.json())
       .then((res) => {
         setProjectInfo(res);
+        setOriginalProjectName(res.nombre);
         setIsLoading(false);
       })
       .catch((err) => router.push("/error"));
@@ -75,14 +77,20 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        ...body,
+        fechaInicio: body.fechaInicio ?? undefined,
+        fechaFin: body.fechaFin ?? undefined,
+      }),
     };
     const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos/${id}`;
-
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        router.push("/exito");
+        const successPath = createsProject
+          ? `/proyecto-creado/${id}`
+          : `/proyecto-actualizado/${id}`;
+        router.push(successPath);
       })
       .catch((err) => router.push("/error"));
   };
@@ -105,7 +113,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
               Información Del Proyecto -
             </h1>
             <h1 className="text-3xl font-bold mb-10 mt-12 ml-2">
-              {projectInfo?.nombre}
+              {originalProjectName}
             </h1>
           </>
         )}

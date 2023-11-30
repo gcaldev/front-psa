@@ -113,7 +113,11 @@ export default function TaskLayout({
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        router.push("/exito");
+        router.push(
+          createsTask
+            ? `/tarea-creada/${taskInfo.project_id}`
+            : `/tarea-actualizada/${taskInfo.project_id}`
+        );
       })
       .catch((err) => router.push("/error"));
   };

@@ -148,7 +148,10 @@ const ProjectItem = ({
       return;
     }
     const currentList = filteredList ?? data;
-  
+      var urlString = window.location.href;
+      var url = new URL(urlString);
+      var productid = url.pathname.split('/')[2];
+      var versionid = url.pathname.split('/')[3];
     return (
       <div className="flex-1">
         <h1 className="text-3xl font-bold">Listado De Tickets</h1>
@@ -168,7 +171,6 @@ const ProjectItem = ({
             />
             <button className="bg-sky-50 hover:bg-zinc-200 px-1">🔍</button>
           </form>
-  
           <Link
             
             //PROBBLEMAAAA 
@@ -186,8 +188,9 @@ const ProjectItem = ({
             //producto_id: router.query.producto_id as string,
             //version_id: router.query.version_id as string,
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href={`/ticket?producto_id=${router.query.produto_id}?version_id=${router.query.version_id}`}
-            >
+            href={`/ticket?producto_id=${productid}&version_id=${versionid}`}
+
+          >
             Crear ticket ✚
           </Link>
         </div>

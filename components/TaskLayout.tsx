@@ -1,4 +1,4 @@
-import { Tarea } from "@/types/types";
+import { Recurso, Tarea } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -30,6 +30,28 @@ export default function TaskLayout({
     id,
     project_id,
   });
+  const [resources, setResources] = useState<Recurso[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/recursos`;
+
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((res) => {
+        setResources(res);
+        setIsLoading(false);
+      })
+      .catch((err) => router.push("/error"));
+  }, []);
+
   useEffect(() => {
     if (createsTask) {
       return;
@@ -84,7 +106,7 @@ export default function TaskLayout({
       })
       .catch((err) => router.push("/error"));
   };
-  console.log(taskInfo);
+
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
@@ -184,10 +206,14 @@ export default function TaskLayout({
             }
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="Ricardo">Ricardo</option>
-            <option value="Juan">Juan</option>
-            <option value="Pedro">Pedro</option>
-            <option value="Ezequiel">Ezequiel</option>
+            {resources.map((resource) => {
+              const fullName = `${resource.Nombre} ${resource.Apellido}`;
+              return (
+                <option id={resource.legajo} value={fullName}>
+                  {fullName}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="col-span-6">
@@ -197,7 +223,6 @@ export default function TaskLayout({
           <textarea
             rows={4}
             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Write your thoughts here..."
             onChange={(e) =>
               setTaskInfo((prev) => ({ ...prev, descripcion: e.target.value }))
             }

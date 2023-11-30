@@ -46,6 +46,11 @@ export interface Tarea {
   descripcion: string;
 }
 
+export interface Recurso {
+  legajo: string;
+  Nombre: string;
+  Apellido: string;
+}
 
 export interface Proyecto {
   id: string;

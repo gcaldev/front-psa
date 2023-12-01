@@ -180,20 +180,6 @@ const TicketItem = ({
           </form>
           <Link
             
-            //PROBBLEMAAAA 
-            //no se mb como funca el router.query.id
-            // lo q hace ahora esto de abajo es redirigir a una pagina distinta
-            //en la url /tickets/{id de prodcto} y mustra la creacion del ticket
-            //en ppio no esta mal si dsps eso se guarda en el producto y verison 
-            //q corresponda cosa q entiendo s epuede hacer con los campos version_id
-            // y producto_id q tiene el ticket  definido.
-            //no se como traer esos campos para q esten en este link
-            //y LO MAS IMPORTANTE MANDARLOS AL TICKETLAYOUT.TSX q es donde
-            // esta la logica de creacion con el post para el ticket
-
-            //  id: router.query.id as string,
-            //producto_id: router.query.producto_id as string,
-            //version_id: router.query.version_id as string,
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
             href={`/ticket/?producto_id=${productid}&version_id=${versionid}`}
           >

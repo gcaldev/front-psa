@@ -12,7 +12,6 @@ export default function UpdateTicketLayout() {
     producto_id:"",
   });
   useEffect(() => {
-    console.log("parametrosss",router.query.params);
     if (router.isReady) {
       console.log(router.query, "router.query");
       setIsLoading(false);
@@ -23,7 +22,7 @@ export default function UpdateTicketLayout() {
     
       });
     }
-    console.log("producto id: ",router.query.producto_id)
+    console.log("ticket id: ",router.query.id)
   }, [router.isReady]);
 
   if (isLoading) {

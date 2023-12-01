@@ -40,7 +40,7 @@ export default function TicketLayout({
     version_id,  
   });
   
-
+  //creo q estyo tampoco va
   //use effect 1
   const [resources, setResources] = useState<Ticket[]>([]);
 
@@ -53,7 +53,9 @@ export default function TicketLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `https://psa-prueba-2.onrender.com/tickets`;
+    
+    //const url = `https://psa-prueba-2.onrender.com/tickets`;
+    const url = `https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -65,6 +67,7 @@ export default function TicketLayout({
   }, []);
   
   
+  //creo q estyo no va
   //use effect 2. Cual es la diferencia??
   useEffect(() => {
     if (createsTicket) {
@@ -78,8 +81,9 @@ export default function TicketLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `https://psa-prueba-2.onrender.com/tickets`;
-
+    //const url = `https://psa-prueba-2.onrender.com/tickets`;
+    const url = "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
+    
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
@@ -122,7 +126,9 @@ export default function TicketLayout({
       },
       body: JSON.stringify(body),
     };
-    const url = `https://psa-prueba-2.onrender.com/tickets`;
+    const url = `https://psa-prueba-2.onrender.com/tickets${id_ticket}`;
+    //const url = `https://my-json-server.typicode.com/
+    //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
     console.log(options, "INFO");
     fetch(url, options)
       .then((res) => res.json())
@@ -144,14 +150,14 @@ export default function TicketLayout({
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
         <label className="block mb-2 text-sm font-medium text-gray-900">
-           aaa {ticketInfo.id_ticket}
+           aaa {ticketInfo.producto_id}
           </label>
           <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre
           </label>
           <input
             type="text"
-            value={ticketInfo.id_ticket}
+            value={ticketInfo.producto_id}
             className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
             onChange={(e) =>
               setTicketInfo((prev) => ({ ...prev, nombre: e.target.value }))

@@ -161,20 +161,23 @@ export default function TicketLayout({
       })
       .catch((err) => router.push("/error"));
   };
-  console.log(ticketInfo);
+  console.log("ticket infooo:",ticketInfo.id_ticket);
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
-        {createsTicket ? "Crear ticket" : "Editar tticket"}
+        {createsTicket ? "Crear ticket" : "Editar ticket"}
       </h1>
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
+        <label className="block mb-2 text-sm font-medium text-gray-900">
+            {ticketInfo.id_ticket}
+          </label>
           <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre
           </label>
           <input
             type="text"
-            value={ticketInfo.nombre}
+            value={ticketInfo.id_ticket}
             className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
             onChange={(e) =>
               setTicketInfo((prev) => ({ ...prev, nombre: e.target.value }))

@@ -9,7 +9,7 @@ import useFetch from "@/hooks/useFetch";
 //import TicketCreate from "@/Components/TicketCreate";
 
 
-const ProjectItem = ({
+const TicketItem = ({
     id_ticket,
     nombre,
     descripcion,
@@ -27,7 +27,6 @@ const ProjectItem = ({
     //   // Hay que chequear si deberia poder no establecer fechas
     //   return <></>;
     // }
-  
     return (
         <article
         id={id_ticket}
@@ -85,7 +84,9 @@ const ProjectItem = ({
             <p className= "text-align: center p-1 font-bold ">
                 <Link
                     className="justify-self-center bg-zinc-50 hover:bg-zinc-100 text-black py-1 px-1"
-                    href={`/soporte/${encodeURIComponent(id_ticket)}`}
+                    //href={`/soporte/${encodeURIComponent(id_ticket)}`}
+                    href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}`}
+                    
                 >  
                 ver tareas asocidas
                 </Link>
@@ -94,7 +95,9 @@ const ProjectItem = ({
 
         <div className="ml-3 self-center flex-3">
           <Link  className=""
-            href={`/soporte/${encodeURIComponent("id_ticket")}`}
+            //</div>href={`/soporte/${encodeURIComponent("id_ticket")}`}
+            href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}`}
+
             >
           <p className="text-base font-bold uppercase">{"EDITAR"}</p>
           </Link>
@@ -105,7 +108,7 @@ const ProjectItem = ({
     );
   };
   
-  export default function Projects() {
+  export default function Tickets() {
     const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
     const [searchName, setSearchName] = useState<string>("");
     const router = useRouter();
@@ -113,21 +116,21 @@ const ProjectItem = ({
         
         //el de render esta vacio NO TRAE NADA
         //EL MYJSON TRAE UN TICKET CON TODOS CAMPOS Q DICEN STRING
-        "https://psa-prueba-2.onrender.com/tickets"
-        //"https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
+        //"https://psa-prueba-2.onrender.com/tickets"
+        "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
     );
   
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (data) {
-        const filteredProjects = data.filter((project) =>
-          project?.nombre?.toLowerCase().includes(searchName?.toLowerCase())
+        const filteredTickets = data.filter((ticket) =>
+          ticket?.nombre?.toLowerCase().includes(searchName?.toLowerCase())
         );
   
-        setFilteredList(filteredProjects);
+        setFilteredList(filteredTickets);
       }
     };
-  
+    
     if (loading) {
       return(
         <div className="text-center py-40">
@@ -142,16 +145,19 @@ const ProjectItem = ({
         </div>
       );
     }
-  
+    
+
     if (error) {
       router.push("/error");
       return;
     }
+
     const currentList = filteredList ?? data;
       var urlString = window.location.href;
       var url = new URL(urlString);
       var productid = url.pathname.split('/')[2];
       var versionid = url.pathname.split('/')[3];
+
     return (
       <div className="flex-1">
         <h1 className="text-3xl font-bold">Listado De Tickets</h1>
@@ -200,8 +206,9 @@ const ProjectItem = ({
               No se encontraron tickets con el nombre especificado
             </h1>
           ) : (
-            currentList?.map((project) => <ProjectItem {...project} />)
-          )}
+            currentList?.map((ticket) => <TicketItem {...ticket} />)
+          )
+          }
         </div>
       </div>
     );

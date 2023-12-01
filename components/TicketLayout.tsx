@@ -6,40 +6,14 @@ import { useEffect, useState } from "react";
 const DEFAULT_SELECT_VALUE = "Elegir";
 
 export default function TicketLayout({
-  //id = "",
-  //project_id,
-
   id_ticket ="",
   producto_id,
   version_id,
-  
-  // nombre,
-  // descripcion,
-  // fecha_de_creacion,
-  // estado,
-  // severidad,
-  // prioridad,
-  // cliente,
-  // asignado,
-  // comentarios,
+
 }: {
   id_ticket?: string;
-  //project_id: string;
-  producto_id: string
-  version_id: string
-
-  // nombre: string
-  // descripcion: string
-  // fecha_de_creacion: string
-  // estado: string
-  // severidad: string
-  // prioridad: string
-  // cliente: string
-  // asignado: string,
-  // comentarios: string
-
-  
-
+  producto_id: string;
+  version_id: string;
 }) {
   const createsTicket = !id_ticket;
   const router = useRouter();
@@ -60,7 +34,7 @@ export default function TicketLayout({
     //comentarios: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(!createsTicket);
-  console.log({
+  console.log("en ticket layout", {
     id_ticket,
     producto_id,
     version_id,  
@@ -159,9 +133,9 @@ export default function TicketLayout({
         //actualizada
 
       })
-      .catch((err) => router.push("/error"));
+      .catch((err) => router.push("/error"));  
   };
-  console.log("ticket infooo:",ticketInfo.id_ticket);
+  
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
@@ -170,7 +144,7 @@ export default function TicketLayout({
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
         <label className="block mb-2 text-sm font-medium text-gray-900">
-            {ticketInfo.id_ticket}
+           aaa {ticketInfo.id_ticket}
           </label>
           <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre
@@ -311,7 +285,7 @@ export default function TicketLayout({
       </div>
       <div></div>
       <div className="flex justify-end items-center gap-4 mt-8">
-        <Link href={`/tablero/${version_id}`}>Volver a tablero</Link>
+        {/* <Link href={`/tablero/${version_id}`}>Volver a tablero</Link> */}
         <button
           className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
           onClick={handleTicketSubmit}

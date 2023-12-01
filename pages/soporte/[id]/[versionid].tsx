@@ -18,11 +18,12 @@ const TicketItem = ({
     severidad,
     prioridad,
     cliente,
-    asignado,
+    asignado,   
     //comentarios,
     producto_id,
     version_id,
-  }: Ticket): JSX.Element => {
+
+}: Ticket): JSX.Element => {
     // if (!fechaInicio || !fechaFin) {
     //   // Hay que chequear si deberia poder no establecer fechas
     //   return <></>;
@@ -96,8 +97,8 @@ const TicketItem = ({
         <div className="ml-3 self-center flex-3">
           <Link  className=""
             //</div>href={`/soporte/${encodeURIComponent("id_ticket")}`}
-            href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}`}
-
+            //href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}?`}
+            href={`/ticket/${id_ticket}?version_id=${version_id}&producto_id=${producto_id}`}
             >
           <p className="text-base font-bold uppercase">{"EDITAR"}</p>
           </Link>
@@ -113,7 +114,7 @@ const TicketItem = ({
     const [searchName, setSearchName] = useState<string>("");
     const router = useRouter();
     const { data, error, loading } = useFetch<Ticket[]>(
-        
+    
         //el de render esta vacio NO TRAE NADA
         //EL MYJSON TRAE UN TICKET CON TODOS CAMPOS Q DICEN STRING
         //"https://psa-prueba-2.onrender.com/tickets"
@@ -157,7 +158,7 @@ const TicketItem = ({
       var url = new URL(urlString);
       var productid = url.pathname.split('/')[2];
       var versionid = url.pathname.split('/')[3];
-
+          
     return (
       <div className="flex-1">
         <h1 className="text-3xl font-bold">Listado De Tickets</h1>
@@ -194,8 +195,7 @@ const TicketItem = ({
             //producto_id: router.query.producto_id as string,
             //version_id: router.query.version_id as string,
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href={`/ticket?producto_id=${productid}&version_id=${versionid}`}
-
+            href={`/ticket/?producto_id=${productid}&version_id=${versionid}`}
           >
             Crear ticket ✚
           </Link>

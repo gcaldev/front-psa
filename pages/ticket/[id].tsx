@@ -22,7 +22,7 @@ export default function UpdateTicketLayout() {
     
       });
     }
-    console.log("ticket id: ",router.query.id)
+    //console.log("ticket id: ",router.query.id)
   }, [router.isReady]);
 
   if (isLoading) {

@@ -24,6 +24,7 @@ const TicketItem = ({
     version_id,
 
 }: Ticket): JSX.Element => {
+    const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
     // if (!fechaInicio || !fechaFin) {
     //   // Hay que chequear si deberia poder no establecer fechas
     //   return <></>;
@@ -84,7 +85,7 @@ const TicketItem = ({
         <div className="place-self-center flex-2">   
             <p className= "text-align: center p-1 font-bold ">
                 <Link
-                    className="justify-self-center bg-zinc-50 hover:bg-zinc-100 text-black py-1 px-1"
+                    className=" justify-self-center bg-zinc-50 hover:bg-zinc-100 text-black py-1 px-1"
                     //href={`/soporte/${encodeURIComponent(id_ticket)}`}
                     href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}`}
                     
@@ -94,14 +95,25 @@ const TicketItem = ({
             </p>
         </div> 
 
-        <div className="ml-3 self-center flex-3">
-          <Link  className=""
-            //</div>href={`/soporte/${encodeURIComponent("id_ticket")}`}
-            //href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}?`}
-            href={`/ticket/${id_ticket}?version_id=${version_id}&producto_id=${producto_id}`}
-            >
-          <p className="text-base font-bold uppercase">{"EDITAR"}</p>
-          </Link>
+        <div className="ml-3 flex-3">
+            <p className= "relative left-10 font-bold ">
+            <Link  className=""
+                //</div>href={`/soporte/${encodeURIComponent("id_ticket")}`}
+                //href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}?`}
+                href={`/ticket/${id_ticket}?version_id=${version_id}&producto_id=${producto_id}`}
+                >
+                <p className=" border-2 border-black px-1 py-1 bg-red-400 box-border h-8
+                 w-8 hover:bg-red-600">{"🗑️"}</p>
+            </Link>
+            </p>
+
+            <p className= "relative mt-5 self-center p-1 font-bold ">
+            <Link  className=""
+                href={`/ticket/${id_ticket}?version_id=${version_id}&producto_id=${producto_id}`}
+                >
+                <p className="text-base font-bold uppercase">{"EDITAR"}</p>
+            </Link>
+            </p>
         </div> 
         
     </article>

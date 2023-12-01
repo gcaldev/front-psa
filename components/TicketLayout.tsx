@@ -115,6 +115,7 @@ export default function TicketLayout({
   }
 
   const handleTicketSubmit = () => {
+    
     setIsLoading(true);
 
     const method = createsTicket ? "POST" : "PUT";
@@ -126,7 +127,9 @@ export default function TicketLayout({
       },
       body: JSON.stringify(body),
     };
-    const url = `https://psa-prueba-2.onrender.com/tickets${id_ticket}`;
+    console.log("ticket info en handle ssubmit: ",ticketInfo)
+    
+    const url = `https://psa-prueba-2.onrender.com/tickets/${id_ticket}`;
     //const url = `https://my-json-server.typicode.com/
     //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
     console.log(options, "INFO");
@@ -139,6 +142,7 @@ export default function TicketLayout({
         //actualizada
 
       })
+      
       .catch((err) => router.push("/error"));  
   };
   
@@ -150,7 +154,7 @@ export default function TicketLayout({
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
         <label className="block mb-2 text-sm font-medium text-gray-900">
-           aaa {ticketInfo.producto_id}
+           aaa {ticketInfo.id_ticket}
           </label>
           <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre
@@ -241,7 +245,7 @@ export default function TicketLayout({
             Asignado FALTA API
           </label>
           <select
-            id="countries"
+            id="countries-2"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             value={ticketInfo.asignado}
             onChange={(e) =>
@@ -262,7 +266,7 @@ export default function TicketLayout({
           <select
             id="countries"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.asignado}
+            value={ticketInfo.cliente}
             onChange={(e) =>
               setTicketInfo((prev) => ({ ...prev, cliente: e.target.value }))
             }

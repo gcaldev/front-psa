@@ -208,7 +208,7 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
             {resources.map((resource) => {
-              const fullName = `${resource.Nombre} ${resource.Apellido}`;
+              const fullName = `${resource.nombre} ${resource.apellido}`;
               return (
                 <option id={resource.legajo} value={fullName}>
                   {fullName}

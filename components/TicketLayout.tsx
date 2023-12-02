@@ -144,7 +144,8 @@ export default function TicketLayout({
         console.log(res);
         setIsLoading(false);
       })
-      .catch((err) => router.push("/error"));
+      .catch((err) =>
+          router.push("/error"));
   }, []);
 
   if (isLoading) {
@@ -187,13 +188,13 @@ export default function TicketLayout({
       .then((res) => {
         router.push(
             createsTicket
-                ? `/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`
-                : `/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`
+                ? `/soporte/${producto_id}/${version_id}`
+                : `/soporte/${producto_id}/${version_id}`
         );
 
       })
       
-      .catch((err) => router.push("/error"));
+      .catch((err) => router.push("/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}"));
   };
 
   return (

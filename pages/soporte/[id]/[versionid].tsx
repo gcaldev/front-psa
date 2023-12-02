@@ -25,7 +25,7 @@ type PreviewTicketType = {
   };
   
   type ItemTableroType = {
-    tickets: PreviewTicketType[];
+    tickets: Ticket[];
     //estado: string;
     //estadoLabel: string;
   };

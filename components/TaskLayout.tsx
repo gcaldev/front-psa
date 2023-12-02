@@ -41,7 +41,7 @@ export default function TaskLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/recursos`;
+    const url = `https://soporte-psa-lor9.onrender.com/Recursos`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -222,7 +222,7 @@ export default function TaskLayout({
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
             {resources.map((resource) => {
-              const fullName = `${resource.Nombre} ${resource.Apellido}`;
+              const fullName = `${resource.nombre} ${resource.apellido}`;
               return (
                 <option id={resource.legajo} value={fullName}>
                   {fullName}

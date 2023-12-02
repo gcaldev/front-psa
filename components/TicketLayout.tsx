@@ -1,6 +1,4 @@
-import { Ticket } from "@/types/types";
-import { Recurso } from "@/types/types";
-import { Cliente } from "@/types/types";
+import {Recurso, Ticket, Cliente} from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -41,6 +39,48 @@ export default function TicketLayout({
     producto_id,
     version_id,  
   });
+  const [recursos, setRecursos] = useState<Recurso[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const url = `https://soporte-psa-lor9.onrender.com/Recursos`;
+
+    fetch(url, options)
+        .then((res) => res.json())
+        .then((res) => {
+          setRecursos(res);
+          setIsLoading(false);
+        })
+        .catch((err) => router.push("/error"));
+  }, []);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const url = `https://soporte-psa-lor9.onrender.com/Clientes`;
+
+    fetch(url, options)
+        .then((res) => res.json())
+        .then((res) => {
+          setClientes(res);
+          setIsLoading(false);
+        })
+        .catch((err) => router.push("/error"));
+  }, []);
   
   //creo q estyo tampoco va
   //use effect 1
@@ -148,93 +188,6 @@ export default function TicketLayout({
       .catch((err) => router.push("/error"));  
   };
 
-  const RecursosComponent: React.FC = () => {
-    const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
-    const [selectedValue, setSelectedValue] = useState(DEFAULT_SELECT_VALUE);
-
-    useEffect(() => {
-      // Realiza una solicitud a tu API para obtener las opciones
-      fetch('https://soporte-psa-lor9.onrender.com/Recursos')
-          .then(response => response.json())
-          .then((data: Recurso[]) => {
-            const mappedOptions = data.map((recurso: Recurso) => ({
-              value: `${recurso.nombre} ${recurso.apellido}`,
-              label: `${recurso.nombre} ${recurso.apellido}`,
-            }));
-
-            // Actualiza el estado con las opciones de la API
-            setOptions(mappedOptions);
-          })
-          .catch(error => {
-            console.error('Error fetching data from API:', error);
-          });
-    }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez al montar el componente
-
-    return (
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Asignado
-          </label>
-          <select
-              id="countries-2"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-          >
-            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            {options.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-            ))}
-          </select>
-        </div>
-    );
-  };
-  const ClientesComponent: React.FC = () => {
-    const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
-    const [selectedValue, setSelectedValue] = useState(DEFAULT_SELECT_VALUE);
-
-    useEffect(() => {
-      // Realiza una solicitud a tu API para obtener las opciones
-      fetch('https://soporte-psa-lor9.onrender.com/Clientes')
-          .then(response => response.json())
-          .then((data: Cliente[]) => {
-            const mappedOptions = data.map((cliente: Cliente) => ({
-              value: `${cliente.razonSocial} `,
-              label: `${cliente.razonSocial} `,
-            }));
-
-            // Actualiza el estado con las opciones de la API
-            setOptions(mappedOptions);
-          })
-          .catch(error => {
-            console.error('Error fetching data from API:', error);
-          });
-    }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez al montar el componente
-
-    return (
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Cliente
-          </label>
-          <select
-              id="countries-2"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-          >
-            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            {options.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-            ))}
-          </select>
-        </div>
-    );
-  };
-
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
@@ -329,10 +282,50 @@ export default function TicketLayout({
           </select>
         </div>
         <div className="col-span-2">
-          <RecursosComponent />
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Asignado
+          </label>
+          <select
+            id="countries-2"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            value={ticketInfo.asignado}
+            onChange={(e) =>
+              setTicketInfo((prev) => ({ ...prev, asignado: e.target.value }))
+            }
+          >
+            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
+            {recursos.map((recursos: Recurso) => {
+              const fullName = `${recursos.nombre} ${recursos.apellido}`;
+              return (
+                  <option id={recursos.legajo} value={fullName}>
+                    {fullName}
+                  </option>
+              );
+            })}
+          </select>
         </div>
         <div className="col-span-2">
-          < ClientesComponent />
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            cliente FALTA API
+          </label>
+          <select
+            id="countries"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            value={ticketInfo.cliente}
+            onChange={(e) =>
+              setTicketInfo((prev) => ({ ...prev, cliente: e.target.value }))
+            }
+          >
+            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
+            {clientes.map((clientes: Cliente) => {
+              const fullName = `${clientes.razonSocial}`;
+              return (
+                  <option id={clientes.id} value={fullName}>
+                    {fullName}
+                  </option>
+              );
+            })}
+          </select>
         </div>
         <div className="col-span-6">
           <label className="block mb-2 text-sm font-medium text-gray-900">

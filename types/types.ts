@@ -6,7 +6,7 @@ export interface Usuario {
 
 export interface Cliente {
   id: string
-  razon_social: string
+  razonSocial: string
   cuit: number
 }
 
@@ -48,8 +48,8 @@ export interface Tarea {
 
 export interface Recurso {
   legajo: string;
-  Nombre: string;
-  Apellido: string;
+  nombre: string;
+  apellido: string;
 }
 
 export interface Proyecto {

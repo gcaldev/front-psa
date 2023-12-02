@@ -30,38 +30,38 @@ export default function Home() {
 
         </div>
         <div className="flex gap-8 mt-10">
-            <l1 className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px] ml-10">
+            <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px] ml-10">
                 <Link href="/proyectos" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">📈</h1>
                         <h1 className="font-semibold">Proyectos</h1>
                     </div>
                 </Link>
-            </l1>
-            <l1 className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
+            </li>
+            <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
                 <Link href="/soporte" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">🔧</h1>
                         <h1 className="font-semibold">Soporte</h1>
                     </div>
                 </Link>
-            </l1>
-            <l1 className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
+            </li>
+            <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
                 <Link href="/home" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">👤</h1>
                         <h1 className="font-semibold">Clientes</h1>
                     </div>
                 </Link>
-            </l1>
-            <l1 className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
+            </li>
+            <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
                 <Link href="/home" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">👥</h1>
                         <h1 className="font-semibold">Usuarios</h1>
                     </div>
                 </Link>
-            </l1>
+            </li>
 
         </div>
     </div>

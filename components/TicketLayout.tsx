@@ -31,7 +31,7 @@ export default function TicketLayout({
     nombre: "",
     id_ticket: "",
     descripcion: "",
-    //comentarios: "",
+    comentarios: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(!createsTicket);
   console.log("en ticket layout", {
@@ -171,7 +171,7 @@ export default function TicketLayout({
     };
     console.log("ticket info en handle ssubmit: ",ticketInfo)
     
-    const url = `https://psa-prueba-2.onrender.com/tickets/${id_ticket}`;
+    const url = `https://soporte-psa-lor9.onrender.com/ticket`;
     //const url = `https://my-json-server.typicode.com/
     //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
     console.log(options, "INFO");
@@ -297,7 +297,7 @@ export default function TicketLayout({
             {recursos.map((recursos: Recurso) => {
               const fullName = `${recursos.nombre} ${recursos.apellido}`;
               return (
-                  <option id={recursos.legajo} value={fullName}>
+                  <option id={recursos.legajo} value={recursos.legajo}>
                     {fullName}
                   </option>
               );
@@ -320,7 +320,7 @@ export default function TicketLayout({
             {clientes.map((clientes: Cliente) => {
               const fullName = `${clientes.razonSocial}`;
               return (
-                  <option id={clientes.id} value={fullName}>
+                  <option id={clientes.id} value={clientes.id}>
                     {fullName}
                   </option>
               );

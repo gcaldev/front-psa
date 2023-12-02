@@ -67,7 +67,7 @@ export default function TicketLayout({
   }, []);
   
   
-  //creo q estyo no va
+  //creo q estyo no va 
   //use effect 2. Cual es la diferencia??
   useEffect(() => {
     if (createsTicket) {

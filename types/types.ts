@@ -52,6 +52,10 @@ export interface Recurso {
   apellido: string;
 }
 
+export interface TaskTicket {
+  taskId: string;
+  ticketId: string;
+}
 export interface Proyecto {
   id: string;
   lider: string;

@@ -2,6 +2,7 @@ import {Recurso, Ticket, Cliente} from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import {create} from "domain";
 
 const DEFAULT_SELECT_VALUE = "Elegir";
 
@@ -84,9 +85,10 @@ export default function TicketLayout({
   
   //creo q estyo tampoco va
   //use effect 1
-  const [resources, setResources] = useState<Ticket[]>([]);
-
   useEffect(() => {
+    if (createsTicket) {
+      return;
+    }
     setIsLoading(true);
 
     const options = {
@@ -95,17 +97,21 @@ export default function TicketLayout({
         "Content-Type": "application/json",
       },
     };
-    
-    //const url = `https://psa-prueba-2.onrender.com/tickets`;
-    const url = `https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets`;
+    const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
 
     fetch(url, options)
-      .then((res) => res.json())
-      .then((res) => {
-        setResources(res);
-        setIsLoading(false);
-      })
-      .catch((err) => router.push("/error"));
+        .then((res) => res.json())
+        .then((res) => {
+          const { fechaInicio, fechaFin, ...rest } = res;
+          setTicketInfo({
+            ...rest,
+            fechaInicio: fechaInicio ?? "",
+            fechaFin: fechaFin ?? "",
+          });
+          console.log(res);
+          setIsLoading(false);
+        })
+        .catch((err) => router.push("/error"));
   }, []);
   
   
@@ -170,18 +176,20 @@ export default function TicketLayout({
       body: JSON.stringify(body),
     };
     console.log("ticket info en handle ssubmit: ",ticketInfo)
-    
-    const url = `https://soporte-psa-lor9.onrender.com/ticket`;
+
+    const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
+
     //const url = `https://my-json-server.typicode.com/
     //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
     console.log(options, "INFO");
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        router.push(`/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`);
-        //#TODO AGREGAR PAGINAS DE REDIDREECION EN CASO DE EXITO
-        //CReada
-        //actualizada
+        router.push(
+            createsTicket
+                ? `/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`
+                : `/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`
+        );
 
       })
       
@@ -240,8 +248,8 @@ export default function TicketLayout({
             <option value="Sin Comenzar">Abierto</option>
             <option value="En Progreso">En progreso</option>
             <option value="Finalizado">En desarrollo</option>
-            <option value="Bloqueado">En implementacion</option>
-            <option value="Bloqueado">Cerrado</option>
+            <option value="implementacion">En implementacion</option>
+            <option value="Cerrado">Cerrado</option>
           </select>
         </div>
         <div className="col-span-2">
@@ -257,10 +265,10 @@ export default function TicketLayout({
             }
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="Sin Comenzar">S1</option>
-            <option value="En Progreso">S2</option>
-            <option value="Finalizado">S3</option>
-            <option value="Bloqueado">S4</option>
+            <option value="S-1">S1</option>
+            <option value="S-2">S2</option>
+            <option value="S-3">S3</option>
+            <option value="S-4">S4</option>
           </select>
         </div>
         <div className="col-span-2">
@@ -349,7 +357,7 @@ export default function TicketLayout({
           className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
           onClick={handleTicketSubmit}
         >
-          Guardar
+          {createsTicket ? "Crear ticket" : "Editar ticket"}
         </button>
       </div>
     </div>

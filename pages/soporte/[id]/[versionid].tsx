@@ -8,7 +8,7 @@ import useFetch from "@/hooks/useFetch";
 
 //import TicketCreate from "@/Components/TicketCreate";
 
-type PreviewTareaType = {
+type PreviewTicketType = {
     id_ticket: string,
     nombre: string,
     descripcion: string,
@@ -18,14 +18,14 @@ type PreviewTareaType = {
     prioridad: string,
     cliente: string,
     asignado: string,   
-    //comentarios,
+    comentarios: string,
     
     producto_id: string,
     version_id: string,
   };
   
   type ItemTableroType = {
-    tareas: PreviewTareaType[];
+    tickets: PreviewTicketType[];
     //estado: string;
     //estadoLabel: string;
   };
@@ -44,7 +44,7 @@ const Ticket = ({
     producto_id,
     version_id,
     onClick,
-  }: PreviewTareaType & { onClick?: any }): JSX.Element => {
+  }: PreviewTicketType & { onClick?: any }): JSX.Element => {
     //const diasDesdeInicio = (fechaInicio: string): string => {
     //   const fechaPasada = new Date(fechaInicio).getTime();
     //   const fechaActual = new Date().getTime();
@@ -147,7 +147,7 @@ const Ticket = ({
 
 
 const ListadoItem = ({
-    tareas,
+    tickets,
     onClick
     // id_ticket,
     // nombre,
@@ -181,7 +181,7 @@ const ListadoItem = ({
         
         <div className="">
         <div>
-          {tareas.map((ticket) => (
+          {tickets.map((ticket) => (
             <Ticket {...ticket} onClick={onClick} />
           ))}
         </div>
@@ -367,7 +367,7 @@ export default function Tickets() {
     
     const deleteTicket = (id: string, onSuccess?: Function) => {
     // const deleteUrl = "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
-    const deleteUrl = `https://psa-prueba-2.onrender.com/tickets/${id}`;
+    const deleteUrl = `https://soporte-psa-lor9.onrender.com//ticket/${id}`;
     const options = {
         method: "DELETE",
         headers: {
@@ -432,7 +432,7 @@ export default function Tickets() {
 
         <div className="mt-8 flex flex-col justify-center">
             <ListadoItem
-              tareas={data}
+              tickets={data}
               //estado={"Sin Comenzar"}
               //estadoLabel={"Sin comenzar"}
               onClick={handleTicketSelection}

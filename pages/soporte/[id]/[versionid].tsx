@@ -203,14 +203,17 @@ export default function Tickets() {
    
     const { data, error, loading, fetchData } = useFetch<Ticket[]>();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-    var urlString = window.location.href;
-    var url = new URL(urlString);
-    var product_id = url.pathname.split('/')[2];
-    var version_id = url.pathname.split('/')[3];
-    
+    var product_id = '0';
+    var version_id = '0';
+    if (typeof window !== 'undefined') {
+        var urlString = window.location.href;
+        var url = new URL(urlString);
+        product_id = url.pathname.split('/')[2];
+        version_id = url.pathname.split('/')[3];
+    }
     const fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${product_id}/${version_id}`;
     //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
-    
+
     console.log(data);
     useEffect(() => {
       if (router.isReady) {

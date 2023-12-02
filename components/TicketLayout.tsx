@@ -185,7 +185,7 @@ export default function TicketLayout({
 
       })
       
-      .catch((err) => router.push("/error"));  
+      .catch((err) => router.push("/error"));
   };
 
   return (
@@ -203,7 +203,7 @@ export default function TicketLayout({
           </label>
           <input
             type="text"
-            value={ticketInfo.producto_id}
+            value={ticketInfo.nombre}
             className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
             onChange={(e) =>
               setTicketInfo((prev) => ({ ...prev, nombre: e.target.value }))

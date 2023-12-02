@@ -178,7 +178,7 @@ export default function TicketLayout({
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        router.push("/exito");
+        router.push(`/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}`);
         //#TODO AGREGAR PAGINAS DE REDIDREECION EN CASO DE EXITO
         //CReada
         //actualizada

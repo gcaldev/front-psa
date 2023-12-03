@@ -337,6 +337,7 @@ export default function Tickets() {
     
       //TIKCET DELETE
     const handleTicketSelection = (id: string): void => {
+
         setShow(!show);
         const ticketToOpen = data.find((ticket) => ticket.id_ticket === id);
         if (!ticketToOpen) {
@@ -496,11 +497,12 @@ export default function Tickets() {
           </div>
 
           <div className="flex mb-5">
-          <button 
-            className=" bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-4 rounded font-semibold mr-2"
-            onClick={() => handleTicketTaskAsoc(selectedTicket?.id_ticket)} >
-            <p>Ver Tareas Asociadas</p>
-          </button>
+              <Link
+                  className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
+                  href={`/TicketTask/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
+              >
+                  Ver Tareas Asociadas
+              </Link>
           </div>
           
         </div>

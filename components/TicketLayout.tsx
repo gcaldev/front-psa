@@ -209,7 +209,7 @@ export default function TicketLayout({
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
         <label className="block mb-2 text-sm font-medium text-gray-900">
-           aaa {ticketInfo.id_ticket}
+           Ticket {ticketInfo.id_ticket}
           </label>
           <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre

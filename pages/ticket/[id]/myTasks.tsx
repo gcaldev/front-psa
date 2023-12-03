@@ -322,7 +322,7 @@ export default function TaskswithTicket() {
           
     return (
       <div className="flex-1">
-        <h1 className="text-3xl font-bold">Listado De Tareas</h1>
+        <h1 className="text-3xl font-bold">Listado De Tareas Asociadas</h1>
         <div className="flex justify-between items-center pt-8">
           <form
             onSubmit={handleSearch}

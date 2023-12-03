@@ -191,8 +191,22 @@ const ListadoItem = ({
   };
 
 
+  // const [taskInfo, setTaskInfo] = useState({
+  //   project_id,
+  //   fechaInicio: "",
+  //   fechaFin: "",
+  //   estado: DEFAULT_SELECT_VALUE,
+  //   prioridad: DEFAULT_SELECT_VALUE,
+  //   asignado: DEFAULT_SELECT_VALUE,
+  //   titulo: "",
+  //   id: "",
+  //   descripcion: "",
+  // }
+
 
 export default function Tickets() {
+    
+    const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
     const [tareas, setTareas] = useState<Tarea[]>([]);
     const [asoc, setTaskTicketAsoc] = useState<TaskTicketAsoc[]>([]);
 
@@ -354,11 +368,46 @@ export default function Tickets() {
           })
           .catch((err) => router.push("/error"));
         
-        console.log("tareas en ticket selection", asoc);
+        console.log("tareas en ticket selectionmnn", asoc);
+       
+      
+        //FETCH DE NOMBRES DE TASKS ASOC A TICKETS
         
-        //FETCH DE NOMBRES DE TASKS ASOC A TICKEST
+       //PREOBLMA, NO SE PUEDEN DEFINIR constantes en foreach
+       //probelma 2 en map no ppuedo tener otro fetch
 
+        //const url_fetch_tareas = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
+        
+        //LEEEEEEEEER
+        //no se como hacer esto, por cada fecth me trae una sola tarea y x cada sola tarea necesito
+        //convertirlo a un listado de tareas para poder hacer el map abajo.
+        //IMPORTANTISMO: SI SE USA LA API DE GONZALO DE MYSJONSERVER
+        //PARA TRAER /TAREAS/ID OJO XQ DEVUELVE UN {INFO TAREA}
+        //HAY Q PONERLE [] PARA CONVERTIRLO EN ARRAY Y PODERLE APLICAR MAP
+        // ASI SE SOLUCIONA EL BLABL.MAP is not a function
+        //el problema igual no es ese... sino lo anterior. no se como hacer los loops
+        //SUGIERO PARA SALIR DEL APURO YA  QM HOY ES DOMINGO
+        // CONVERTIRLO EN UN BOTON QUE LLEVE UNA VENTANA APARTE, igualmente, hay q ver
+        //como hacer xq para mnostrar texto de estas cosas por panatllas solo sabemos
+        //hacerlo con el .map y eso solo funciona con estos objetos de la clase setblabla
 
+      // asoc.map((asoc) =>
+      //     fetch(url_fetch_tareas+asoc.taskId, options)
+      //     .then((res) => res.json())
+      //     .then((res) => {
+      //       setTareas([res]);
+
+      //       tareas.map((tarea) =>
+      //       listado_tareas.push(tarea.titulo)
+      //       )
+          
+      //   })
+      // );
+      // console.log(listado_tareas)
+      // //listado_tareas => listado_tareas.json()
+      // setListadoTareas(listadoTareas);
+               
+        //ABRIR MOCK CON TAREA
         setSelectedTicket(ticketToOpen);
       };
     
@@ -502,15 +551,23 @@ export default function Tickets() {
           <div className="flex mb-5">
             <p className="font-semibold mr-2">Tareas asociadas</p>
             <p> </p>
-            {asoc.map((asoc) => {
-              const fullName = `${asoc.taskId}`;
-              return (
-                <option id={asoc.taskId} value={fullName}>
-                  {fullName}
-                </option>
-              );
-            })}
-
+            {/* donde dice asoc deberia ir tareas pero como puse arriba 
+            no se como guardar TODAS las atreas en el ;istado de tareas 
+            ya que fetch con eltaskId nos trae una a la vez */}
+            
+            {
+              asoc.map((tarea) => {
+                console.log("lololo",tarea.taskId);
+                const fullName = `${tarea.taskId}`;
+                return (
+                  <option id={tarea.taskId} value={fullName}>
+                    {fullName}
+                  </option>
+                );
+              })
+                        
+            }
+              
           </div>
 
           <div className="flex mb-5">

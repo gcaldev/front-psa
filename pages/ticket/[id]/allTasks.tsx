@@ -119,7 +119,7 @@ function buscarNombredeProyecto(projects: Proyecto[] | null | undefined, proyect
             return '??';
     if(!projects)
             return proyectoId;
-    const proyectoEncontrado = projects.find(proyecto => proyecto.id === proyectoId);
+    const proyectoEncontrado = projects.find(proyecto => parseInt(proyecto.id,10) === parseInt(proyectoId,10));
 
     return proyectoEncontrado ? proyectoEncontrado.nombre : proyectoId;
 }

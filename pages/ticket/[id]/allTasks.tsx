@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import TicketGridRow from "@/components/ticketGridRow"; //traer ticketGrindRow
 import { useRouter } from 'next/router';
-import { Ticket, Tarea, TaskTicketAsoc } from "@/types/types";
+import {Ticket, Tarea, TaskTicketAsoc, Proyecto} from "@/types/types";
 import useFetch from "@/hooks/useFetch";
 
 import TaskLayout from "@/components/TaskLayout";
@@ -114,14 +114,23 @@ const ListadoItem = ({
       </div>
     );
   };
+function buscarNombreProyecto(projects: Proyecto[] | null | undefined, proyectoId: string | null | undefined): string {
+    if (!proyectoId )
+            return '??';
+    if(!projects)
+            return proyectoId;
+    const proyectoEncontrado = projects.find(proyecto => proyecto.id === proyectoId);
 
+    // Si se encuentra el proyecto, se devuelve su nombre, de lo contrario, se devuelve un mensaje de error.
+    return proyectoEncontrado ? proyectoEncontrado.nombre : proyectoId;
+}
 
 export default function TaskswithTicket() {
 
     const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
     const [tareas, setTareas] = useState<Tarea[]>([]);
     const [asoc, setTaskTicketAsoc] = useState<TaskTicketAsoc[]>([]);
-
+    const [proyectos, setProyectos] = useState<Proyecto[]>();
     const [filteredList, setFilteredList] = useState<Tarea[] | null>(null);
     const [searchName, setSearchName] = useState<string>("");
     const [taskticketInfo, setTaskTicketInfo] = useState({
@@ -138,7 +147,25 @@ export default function TaskswithTicket() {
 
     const fetch_url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
     //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
+    useEffect(() => {
+        //setIsLoading(true);
 
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos`;
+
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setProyectos(res);
+                ///setIsLoading(false);
+            })
+            .catch((err) => router.push("/error"));
+    }, []);
     console.log(data);
     useEffect(() => {
       if (router.isReady) {
@@ -384,30 +411,12 @@ export default function TaskswithTicket() {
           <p className="col-span-2 mb-5">{selectedTask?.descripcion}</p>
 
           <p className="font-semibold">Estado</p>
+            <p className="mb-5">{selectedTask?.estado}</p>
           <p className="font-semibold">Prioridad</p>
+            <p className="mb-5">{selectedTask?.prioridad}</p>
           <p className="font-semibold">Proyecto</p>
-          <p className="mb-5">{selectedTask?.estado}</p>
-          <p className="mb-5">{selectedTask?.prioridad}</p>
-          <p className="mb-5">{selectedTask?.project_id}</p>
+          <p className="mb-5">{buscarNombreProyecto(proyectos,selectedTask?.project_id)}</p>
 
-          {selectedTask?.fechaInicio && (
-            <div>
-              <p className="font-semibold">Fecha de inicio</p>
-              <p className="mb-5">{selectedTask?.fechaInicio}</p>
-            </div>
-          )}
-          {selectedTask?.fechaFin && (
-            <div>
-              <p className="font-semibold">Fecha de fin</p>
-              <p className="mb-5">{selectedTask?.fechaFin}</p>
-            </div>
-          )}
-          {selectedTask?.project_id && (
-              <div>
-                  <p className="font-semibold">Proyecto</p>
-                  <p className="mb-5">{selectedTask?.project_id}</p>
-              </div>
-          )}
           <div>
             <p className="font-semibold mr-2">Asignada a</p>
             <p className="col-span-2">{selectedTask?.asignado}</p>

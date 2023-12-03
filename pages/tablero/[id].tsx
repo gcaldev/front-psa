@@ -259,7 +259,7 @@ export default function TableroLayout() {
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
             href={`/tarea/${encodeURIComponent(
               selectedTask?.id ?? ""
-            )}?project_id=${selectedTask?.project_id}`}
+            )}?project_id=${selectedTask?.projectIid}`}
           >
             Editar
           </Link>

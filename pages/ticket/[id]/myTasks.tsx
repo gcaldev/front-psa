@@ -11,7 +11,7 @@ import TaskLayout from "@/components/TaskLayout";
 //import TicketCreate from "@/Components/TicketCreate";
 
 type PreviewTaskType = {
-    project_id: string
+    projectIid: string
     estado: string
     fechaInicio: string
     fechaFin: string
@@ -31,7 +31,7 @@ type TaskTicket = {
 }
 
 const Tarea = ({
-                   project_id,
+                   projectIid,
                    estado,
                    fechaInicio,
                    fechaFin,
@@ -143,7 +143,7 @@ export default function TaskswithTicket() {
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
     const [loadedTasks, setLoadedTasks] = useState<boolean>(false);
     const [loadedAssociations, setAssociations] = useState<boolean>(false);
-    let fetch_url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
+    let fetch_url = `https://back-proyectos-psa-2.onrender.com/tareas`;
     let id_ticket: string = '0';
     if(router.query.id) {
         id_ticket = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
@@ -161,7 +161,7 @@ export default function TaskswithTicket() {
                 "Content-Type": "application/json",
             },
         };
-        const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos`;
+        const url = `https://back-proyectos-psa-2.onrender.com/proyectos`;
 
         fetch(url, options)
             .then((res) => res.json())
@@ -412,7 +412,7 @@ export default function TaskswithTicket() {
           <p className="font-semibold">Prioridad</p>
             <p className="mb-5">{selectedTask?.estado}</p>
           <p className="font-semibold">Proyecto</p>
-          <p className="mb-5">{buscarNombredeProyecto(proyectos,selectedTask?.project_id)}</p>
+          <p className="mb-5">{buscarNombredeProyecto(proyectos,selectedTask?.projectIid)}</p>
             <p className="font-semibold">Asignada a</p>
             <p className="mb-5">{selectedTask?.asignado}</p>
           <div className="flex mb-5">

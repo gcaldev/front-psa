@@ -121,7 +121,7 @@ function buscarNombredeProyecto(projects: Proyecto[] | null | undefined, proyect
         return proyectoId;
     }
 
-    const proyectoEncontrado = projects.find(proyecto => proyecto.id.trim() === proyectoId);
+    const proyectoEncontrado = projects.find(proyecto => parseInt(proyecto.id,10) === parseInt(proyectoId,10));
 
     return proyectoEncontrado ? proyectoEncontrado.nombre : proyectoId;
 }

@@ -86,11 +86,7 @@ const Ticket = ({
                         <span className= "font-bold">Estado: </span>
                         <span>{estado}</span>
                     </p>
-                    <p className="ml-4" >  
-                        <span className= "  font-bold">Asignado </span>
-                        <span>{asignado}</span>
-                    </p>
-                    <p className="ml-4" >  
+                     <p className="ml-4" >
                         <span className= "font-bold">Severidad </span>
                         <span>{severidad}</span>
                     </p>
@@ -100,14 +96,6 @@ const Ticket = ({
                         <span className= "font-bold">Prioridad </span>
                         <span>{prioridad}</span>
                     </p>
-                    <p className="ml-7" >  
-                        <span className= "  font-bold">Cliente </span>
-                        <span>{cliente}</span>
-                    </p>
-                    {/* <p className="ml-5" >  
-                        <span className= "font-bold">Tareas asociadas </span>
-                        <span>{taras_asociadas}</span>
-                    </p>                 */}
                 </div>
             </div>
         </div>

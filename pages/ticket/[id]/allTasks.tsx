@@ -61,7 +61,7 @@ const Tarea = ({
                 </p>
                 <p className="m-0" >  
                     <span>fecha de inicio: </span>
-                    <span>{fechaInicio}</span>
+                    <span>{fechaInicio ? fechaInicio : '-/-/-'}</span>
                 </p>
             </div>
         
@@ -75,10 +75,6 @@ const Tarea = ({
                         <span className= "  font-bold">Asignado </span>
                         <span>{asignado}</span>
                     </p>
-                    <p className="ml-4" >  
-                        <span className= "font-bold">Proyecto </span>
-                        <span>{project_id}</span>
-                    </p>
                 </div>
                 <div className="flex flex-row ">
                 <p className="m-0" >  
@@ -87,7 +83,7 @@ const Tarea = ({
                     </p>
                     <p className="ml-7" >  
                         <span className= "  font-bold">Fecha de fin </span>
-                        <span>{fechaFin}</span>
+                        <span>{fechaFin ? fechaFin : '-/-/-'}</span>
                     </p>
                 </div>
             </div>

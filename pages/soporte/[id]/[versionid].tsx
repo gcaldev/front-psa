@@ -540,7 +540,7 @@ export default function Tickets() {
 
         <div className="mt-8 flex flex-col justify-center">
             <ListadoItem
-              tickets={data}
+              tickets={data.filter(ticket => ticket.nombre.includes(searchName))}
               //estado={"Sin Comenzar"}
               //estadoLabel={"Sin comenzar"}
               onClick={handleTicketSelection}

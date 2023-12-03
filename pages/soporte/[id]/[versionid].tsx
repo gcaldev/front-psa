@@ -573,12 +573,21 @@ export default function Tickets() {
           <div className="flex mb-5">
               <Link
                   className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-                  href={`/ticket/${selectedTicket?.id_ticket}/tasks`}
+                  href={`/ticket/${selectedTicket?.id_ticket}/allTasks`}
                   //href={`/TicketTask/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
               >
                   Asociar tarea
               </Link>
           </div>
+            <div className="flex mb-5">
+                <Link
+                    className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
+                    href={`/ticket/${selectedTicket?.id_ticket}/myTasks`}
+                    //href={`/TicketTask/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
+                >
+                    Ver Tareas Asociadas
+                </Link>
+            </div>
           
         </div>
         <div className="flex flex-1 justify-end items-end gap-8">

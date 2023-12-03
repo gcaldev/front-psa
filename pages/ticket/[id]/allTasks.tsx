@@ -114,14 +114,13 @@ const ListadoItem = ({
       </div>
     );
   };
-function buscarNombreProyecto(projects: Proyecto[] | null | undefined, proyectoId: string | null | undefined): string {
+function buscarNombredeProyecto(projects: Proyecto[] | null | undefined, proyectoId: string | null | undefined): string {
     if (!proyectoId )
             return '??';
     if(!projects)
             return proyectoId;
     const proyectoEncontrado = projects.find(proyecto => proyecto.id === proyectoId);
 
-    // Si se encuentra el proyecto, se devuelve su nombre, de lo contrario, se devuelve un mensaje de error.
     return proyectoEncontrado ? proyectoEncontrado.nombre : proyectoId;
 }
 
@@ -415,8 +414,7 @@ export default function TaskswithTicket() {
           <p className="font-semibold">Prioridad</p>
             <p className="mb-5">{selectedTask?.prioridad}</p>
           <p className="font-semibold">Proyecto</p>
-          <p className="mb-5">{buscarNombreProyecto(proyectos,selectedTask?.project_id)}</p>
-
+          <p className="mb-5">{buscarNombredeProyecto(proyectos,selectedTask?.project_id)}</p>
           <div>
             <p className="font-semibold mr-2">Asignada a</p>
             <p className="col-span-2">{selectedTask?.asignado}</p>

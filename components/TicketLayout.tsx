@@ -194,7 +194,11 @@ export default function TicketLayout({
 
       })
       
-      .catch((err) => router.push("/soporte/${ticketInfo.producto_id}/${ticketInfo.version_id}"));
+      .catch((err) => router.push(
+          createsTicket
+              ? `/soporte/${producto_id}/${version_id}`
+              : `/soporte/${producto_id}/${version_id}`
+      ));
   };
 
   return (

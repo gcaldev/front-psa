@@ -188,11 +188,11 @@ const ListadoItem = ({
       </div>
     );
   };
-  
-  
+
+
 
 export default function Tickets() {
-    
+
     const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
     const [searchName, setSearchName] = useState<string>("");    
     
@@ -317,26 +317,21 @@ export default function Tickets() {
       };
     
     const handleTicketTaskAsoc = async (id?: string) => {
-
-      //#TODO
-      //No se como hacer esto pero habri q primero crear una tarea devolver su id
-      //y no se como volver a esta misma funcion dde la interfaz de crear tarea con
-      //un id de tarea y de proyecto.
-      //desoues de eso
-      console.log("tarea_id en handledelteticket:",id )
-      const closeModal = () => {
-          //setShow(false);
-          //setWantsToDelete(false);
-          //setSelectedTicket(null);
-      };
-      var id_tarea = "1"
-      var id_proyecto = "32"
-      if (id) {
-        generateTicketTaskAsoc(id, id_tarea,id_proyecto, closeModal);
-      } else {
-          closeModal();
-      }
-      };
+          const url_proyectos = ` https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos,`; //cambiar luego a ulr
+          console.log("tarea_id en handledelteticket:",id )
+          const closeModal = () => {
+              //setShow(false);
+              //setWantsToDelete(false);
+              //setSelectedTicket(null);
+          };
+          var id_tarea = "1"
+          var id_proyecto = "32"
+          if (id) {
+            generateTicketTaskAsoc(id, id_tarea,id_proyecto, closeModal);
+          } else {
+              closeModal();
+          }
+          };
       
   
     
@@ -504,7 +499,7 @@ export default function Tickets() {
           <button 
             className=" bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-4 rounded font-semibold mr-2"
             onClick={() => handleTicketTaskAsoc(selectedTicket?.id_ticket)} >
-            <p>Asociar tarea</p>
+            <p>Ver Tareas Asociadas</p>
           </button>
           </div>
           

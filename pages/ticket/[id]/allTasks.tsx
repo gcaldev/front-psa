@@ -139,8 +139,12 @@ export default function TaskswithTicket() {
 
     const { data, error, loading, fetchData } = useFetch<Tarea[]>();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-
-    const fetch_url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
+    let fetch_url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
+    let id_ticket: string = '0';
+    if(router.query.id) {
+        id_ticket = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
+        fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}/notmytasks`;
+    }
     //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
     useEffect(() => {
         //setIsLoading(true);
@@ -243,11 +247,13 @@ export default function TaskswithTicket() {
                     setWantsToDelete(false);
                     setSelectedTask(null);
                     handleSuccessAssociation();
+                    location.reload();
                 })
                 .catch((err) => {
                         setShow(false);
                         setWantsToDelete(false);
                         setSelectedTask(null);
+                        location.reload();
                     }
                 )
 
@@ -344,7 +350,7 @@ export default function TaskswithTicket() {
           
     return (
       <div className="flex-1">
-        <h1 className="text-3xl font-bold">Listado De Tareas</h1>
+        <h1 className="text-3xl font-bold">Elija una Tarea a Asociar</h1>
         <div className="flex justify-between items-center pt-8">
           <form
             onSubmit={handleSearch}

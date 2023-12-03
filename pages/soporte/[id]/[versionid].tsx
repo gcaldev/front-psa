@@ -592,7 +592,7 @@ export default function Tickets() {
 
           {selectedTicket?.fecha_de_creacion && (
             <div>
-              <p className="font-semibold">Fecha de inicio</p>
+              <p className="font-semibold">Fecha de creación</p>
               <p className="mb-5">{selectedTicket.fecha_de_creacion}</p>
             </div>
           )}

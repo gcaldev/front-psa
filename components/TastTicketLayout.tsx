@@ -1,4 +1,4 @@
-import {Recurso, Ticket, Cliente, Tarea} from "@/types/types";
+import {Recurso, Ticket, Cliente, Tarea, TaskTicket} from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -18,12 +18,14 @@ export default function TicketLayout({
 }) {
   const createsTicket = !id_ticket;
   const router = useRouter();
+
+
   const [ticketInfo, setTicketInfo] = useState({
     producto_id,
     version_id,
-    
+
     fecha_de_creacion: "",
-    
+
     estado: DEFAULT_SELECT_VALUE,
     severidad: DEFAULT_SELECT_VALUE,
     prioridad: DEFAULT_SELECT_VALUE,
@@ -61,34 +63,9 @@ export default function TicketLayout({
         })
         .catch((err) => router.push("/error"));
   }, []);
-  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [ticket, setTicket] = useState<Ticket>();
 
   useEffect(() => {
-    setIsLoading(true);
-
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const url = `https://soporte-psa-lor9.onrender.com/Clientes`;
-
-    fetch(url, options)
-        .then((res) => res.json())
-        .then((res) => {
-          setClientes(res);
-          setIsLoading(false);
-        })
-        .catch((err) => router.push("/error"));
-  }, []);
-  
-  //creo q estyo tampoco va
-  //use effect 1
-  useEffect(() => {
-    if (createsTicket) {
-      return;
-    }
     setIsLoading(true);
 
     const options = {
@@ -102,51 +79,17 @@ export default function TicketLayout({
     fetch(url, options)
         .then((res) => res.json())
         .then((res) => {
-          const { fechaInicio, fechaFin, ...rest } = res;
-          setTicketInfo({
-            ...rest,
-            fechaInicio: fechaInicio ?? "",
-            fechaFin: fechaFin ?? "",
-          });
-          console.log(res);
+          setTicket(res);
           setIsLoading(false);
         })
         .catch((err) => router.push("/error"));
   }, []);
-  
-  
+  const [taskticketInfo, setTaskTicketInfo] = useState({
+    taskId: "",
+    ticketId: ticketInfo.id_ticket
+  });
   //creo q estyo no va 
   //use effect 2. Cual es la diferencia??
-  useEffect(() => {
-    if (createsTicket) {
-      return;
-    }
-    setIsLoading(true);
-
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    //const url = `https://psa-prueba-2.onrender.com/tickets`;
-    const url = "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
-    
-    fetch(url, options)
-      .then((res) => res.json())
-      .then((res) => {
-        const { fechaIfecha_de_creacion, estado, ...rest } = res;
-        setTicketInfo({
-          ...rest,
-          fechaInicio: fechaIfecha_de_creacion ?? "",
-          fechaFin: estado ?? "",
-        });
-        console.log(res);
-        setIsLoading(false);
-      })
-      .catch((err) =>
-          router.push("/error"));
-  }, []);
 
   if (isLoading) {
     return(
@@ -167,8 +110,9 @@ export default function TicketLayout({
     
     setIsLoading(true);
 
-    const method = "PUT";
-    const body = createsTicket ? { ...ticketInfo, id: undefined } : ticketInfo;
+    const method = "POST";
+
+    const body = createsTicket ? { ...taskticketInfo, id_ticket: ticket?.id_ticket } : { ...taskticketInfo, id_ticket: ticket?.id_ticket };
     const options = {
       method,
       headers: {
@@ -177,8 +121,9 @@ export default function TicketLayout({
       body: JSON.stringify(body),
     };
     console.log("ticket info en handle ssubmit: ",ticketInfo)
-
-    const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
+    alert(taskticketInfo?.taskId);
+    alert(taskticketInfo?.ticketId);
+    const url = `https://soporte-psa-lor9.onrender.com/ticket/task`;
 
     //const url = `https://my-json-server.typicode.com/
     //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
@@ -204,95 +149,17 @@ export default function TicketLayout({
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
-        {createsTicket ? "Crear ticket" : "Editar ticket"}
+        {createsTicket ? "Crear ticket" : "Asociar Tarea"}
       </h1>
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">
         <label className="block mb-2 text-sm font-medium text-gray-900">
-           aaa {ticketInfo.id_ticket}
+           Asociar {ticketInfo.id_ticket}
           </label>
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Nombre
+          <label className="block mb-2 font-semibold text-2xl gray-900">
+            Nombre: {ticket?.nombre}
           </label>
-          <input
-            type="text"
-            value={ticketInfo.nombre}
-            className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, nombre: e.target.value }))
-            }
-          />
-        </div>
-        <div className="col-span-3">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Fecha de creacion
-          </label>
-          <input
-            type="date"
-            id="start"
-            name="trip-start"
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, fecha_de_creacion: e.target.value }))
-            }
-            value={ticketInfo.fecha_de_creacion}
-          />
-        </div>
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Estado
-          </label>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.estado}
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, estado: e.target.value }))
-            }
-          >
-            <option value="Sin Comenzar">Abierto</option>
-            <option value="En Progreso">En progreso</option>
-            <option value="Finalizado">En desarrollo</option>
-            <option value="implementacion">En implementacion</option>
-            <option value="Cerrado">Cerrado</option>
-          </select>
-        </div>
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-          Severidad
-          </label>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.severidad}
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, severidad: e.target.value }))
-            }
-          >
-            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="S-1">S1</option>
-            <option value="S-2">S2</option>
-            <option value="S-3">S3</option>
-            <option value="S-4">S4</option>
-          </select>
-        </div>
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Prioridad
-          </label>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.prioridad}
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, prioridad: e.target.value }))
-            }
-          >
-            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="Baja">Baja</option>
-            <option value="Media">Media</option>
-            <option value="Alta">Alta</option>
-          </select>
+
         </div>
         <div className="col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -301,58 +168,21 @@ export default function TicketLayout({
           <select
             id="countries-2"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.asignado}
+            value={taskticketInfo?.taskId}
             onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, asignado: e.target.value }))
+                setTaskTicketInfo((prev) => ({ ...prev, taskId: e.target.id }))
             }
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
             {tareas.map((tareas: Tarea) => {
               const fullName = `${tareas.id} ${tareas.titulo} `;
               return (
-                  <option id={tareas.id} value={tareas.titulo}>
+                  <option id={tareas.id} value={tareas.id}>
                     {fullName}
                   </option>
               );
             })}
           </select>
-        </div>
-        <div className="col-span-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            cliente FALTA API
-          </label>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value={ticketInfo.cliente}
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, cliente: e.target.value }))
-            }
-          >
-            <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            {clientes.map((clientes: Cliente) => {
-              const fullName = `${clientes.razonSocial}`;
-              return (
-                  <option id={clientes.id} value={clientes.id}>
-                    {fullName}
-                  </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="col-span-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
-            Descripción
-          </label>
-          <textarea
-            rows={4}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Write your thoughts here..."
-            onChange={(e) =>
-              setTicketInfo((prev) => ({ ...prev, descripcion: e.target.value }))
-            }
-            value={ticketInfo.descripcion}
-          ></textarea>
         </div>
       </div>
       <div></div>

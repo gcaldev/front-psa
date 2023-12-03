@@ -50,6 +50,7 @@ export default function TaskLayout({
         setIsLoading(false);
       })
       .catch((err) => router.push("/error"));
+      console.log("tareas en ticket selection", resources);
   }, []);
 
   useEffect(() => {

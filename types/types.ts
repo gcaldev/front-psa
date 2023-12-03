@@ -46,6 +46,11 @@ export interface Tarea {
   descripcion: string;
 }
 
+export interface TaskTicketAsoc {
+  taskId: string;
+  ticketId: string;
+}
+
 export interface Recurso {
   legajo: string;
   nombre: string;

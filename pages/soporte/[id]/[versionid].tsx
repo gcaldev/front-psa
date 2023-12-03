@@ -2,8 +2,9 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import TicketGridRow from "@/components/ticketGridRow"; //traer ticketGrindRow
 import { useRouter } from 'next/router';
-import { Ticket } from "@/types/types";
+import { Ticket, Tarea, TaskTicketAsoc } from "@/types/types";
 import useFetch from "@/hooks/useFetch";
+import TaskLayout from "@/components/TaskLayout";
 
 
 //import TicketCreate from "@/Components/TicketCreate";
@@ -192,6 +193,8 @@ const ListadoItem = ({
 
 
 export default function Tickets() {
+    const [tareas, setTareas] = useState<Tarea[]>([]);
+    const [asoc, setTaskTicketAsoc] = useState<TaskTicketAsoc[]>([]);
 
     const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
     const [searchName, setSearchName] = useState<string>("");    
@@ -259,39 +262,28 @@ export default function Tickets() {
     //Aociation
     //FALTA COMPLETAR
     //tendria q mandar el ticket y traer tareas con su proyecto asociado
-    function fetchTikcetAsoc (id?: string) {
-      const fetch_asociation_urk = ` https://soporte-psa-lor9.onrender.com//ticket/${id}/task,`;
-      console.log("tarea_id en handledelteticket:",id )
-      
-      var id_tarea = "AA";
-      var id_proyecto = "AAA";
-      
-      if (id) {
-        const options = {
-          method: "POST",
-          headers: {
-          "Content-Type": "application/json",
-          },
-        };
-        fetch(fetch_asociation_urk, options)
-          .then((res) => res.json())
-          .then((res) => {
-          
-          const { id_tarea, id_proyecto, ...rest } = res;
-          //O se hace esto no se como llamar Set Ticket iunfo
-          // setTicketInfo({
-          //   ...rest,
-          //   fechaInicio: fechaInicio ?? "",
-          //   fechaFin: fechaFin ?? "",
-          // });
-          
-          setDeleteLoading(false);
-          fetchData(fetch_url, "GET");
-          //onSuccess?.();
-          })
-          .catch((err) => router.push("/error"));
-        }
-      };
+    // useEffect(() => {
+    //   //setIsLoading(true);
+  
+    //   const options = {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   };
+    //   const url = `https://soporte-psa-lor9.onrender.com//ticket/${ticketId}/task`;
+  
+    //   fetch(url, options)
+    //     .then((res) => res.json())
+    //     .then((res) => {
+    //       setTareas(res);
+    //       //setIsLoading(false);
+    //     })
+    //     .catch((err) => router.push("/error"));
+    // }, []);
+  
+    
+    
 
     //#BORRAR SI SE ROMPE TODO
     const generateTicketTaskAsoc = (id: string, id_tarea: string, id_proyecto:string, onSuccess?: Function) => {
@@ -336,12 +328,37 @@ export default function Tickets() {
     
       //TIKCET DELETE
     const handleTicketSelection = (id: string): void => {
-
+      
         setShow(!show);
         const ticketToOpen = data.find((ticket) => ticket.id_ticket === id);
         if (!ticketToOpen) {
           return;
         }
+        
+        console.log("Id tarea elegida", id);
+        
+        //FETCH DE TASK TICKETS ASOC
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const url = `https://soporte-psa-lor9.onrender.com/ticket/${id}/task`;
+    
+        fetch(url, options)
+          .then((res) => res.json())
+          .then((res) => {
+            setTaskTicketAsoc(res);
+            //setIsLoading(false);
+          })
+          .catch((err) => router.push("/error"));
+        
+        console.log("tareas en ticket selection", asoc);
+        
+        //FETCH DE NOMBRES DE TASKS ASOC A TICKEST
+
+
         setSelectedTicket(ticketToOpen);
       };
     
@@ -484,14 +501,15 @@ export default function Tickets() {
         
           <div className="flex mb-5">
             <p className="font-semibold mr-2">Tareas asociadas</p>
-            <p onClick={() =>fetchTikcetAsoc(selectedTicket?.id_ticket)}> </p>
-            {/*
-            LO de arriba no tengo la menor idea de si se puede traer los valores de la funciones
-            y ponerlos ahi formateados de alguna manera. Seguro q con el onclick no
-            si no se puede la opcion facil es la de aca abajo traer la tarea y
-            q del back venga con los ticket asociados
-            OPCION FACIL LA DE ACA ABAJOI             
-            <p className="col-span-2">{selectedTicket?.asignado}</p> */}
+            <p> </p>
+            {asoc.map((asoc) => {
+              const fullName = `${asoc.taskId}`;
+              return (
+                <option id={asoc.taskId} value={fullName}>
+                  {fullName}
+                </option>
+              );
+            })}
 
           </div>
 

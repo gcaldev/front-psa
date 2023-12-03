@@ -72,7 +72,7 @@ const Ticket = ({
                 </p>
                 <p className="m-0" >  
                     <span className="" >Descripción: </span>
-                    <span>{descripcion}</span>
+                    <span>{descripcion ? descripcion.substring(0,60) : descripcion}</span>
                 </p>
                 <p className="m-0" >  
                     <span>fecha de creación: </span>
@@ -133,7 +133,7 @@ const Ticket = ({
 
       );
     };
-
+const longitudLinea: number = 40;
 
 const ListadoItem = ({
     tickets,
@@ -212,6 +212,16 @@ function buscarNombredeCliente(clientes: Cliente[] | null | undefined, clienteId
     const proyectoEncontrado = clientes.find(cliente => parseInt(cliente.id,10) === parseInt(clienteId,10));
 
     return proyectoEncontrado ? proyectoEncontrado.razonSocial : clienteId;
+}
+function addSpaces(textoLargo: String | null | undefined): String{
+    let textoFormateado: string = ``;
+    if (!textoLargo)
+        return '------';
+    for (let i = 0; i < textoLargo.length; i += longitudLinea) {
+        const linea = textoLargo.substring(i, i + longitudLinea);
+        textoFormateado += linea + "\n";
+    }
+    return textoFormateado;
 }
 export default function Tickets() {
     
@@ -570,8 +580,8 @@ export default function Tickets() {
             </h2>
           </div>
 
-          <p className="col-span-2 font-semibold">Descripción</p>
-          <p className="col-span-2 mb-5">{selectedTicket?.descripcion}</p>
+          <p className="col-span-2 font-semibold ">Descripción</p>
+          <p className="col-span-2 mb-5 " style={{ fontSize: '14px' }}>{addSpaces(selectedTicket?.descripcion)}</p>
 
           <p className="font-semibold">Estado</p>
           <p className="font-semibold">Prioridad</p>
@@ -637,7 +647,7 @@ export default function Tickets() {
             </div>
           
         </div>
-        <div className="flex flex-1 justify-between items-end gap-8">
+        <div className="flex flex-1 justify-between mt-1 items-end gap-8">
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
             onClick={() => setWantsToDelete(true)}

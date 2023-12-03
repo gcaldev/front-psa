@@ -637,7 +637,7 @@ export default function Tickets() {
             </div>
           
         </div>
-        <div className="flex flex-1 justify-end items-end gap-8">
+        <div className="flex flex-1 justify-between items-end gap-8">
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
             onClick={() => setWantsToDelete(true)}

@@ -260,7 +260,7 @@ export default function Tickets() {
     //FALTA COMPLETAR
     //tendria q mandar el ticket y traer tareas con su proyecto asociado
     function fetchTikcetAsoc (id?: string) {
-      const fetch_asociation_urk = ` https://soporte-psa-lor9.onrender.com/,`;
+      const fetch_asociation_urk = ` https://soporte-psa-lor9.onrender.com//ticket/${id}/task,`;
       console.log("tarea_id en handledelteticket:",id )
       
       var id_tarea = "AA";
@@ -291,8 +291,7 @@ export default function Tickets() {
           })
           .catch((err) => router.push("/error"));
         }
-      
-      return ({id_tarea,id_proyecto}) };
+      };
 
     //#BORRAR SI SE ROMPE TODO
     const generateTicketTaskAsoc = (id: string, id_tarea: string, id_proyecto:string, onSuccess?: Function) => {
@@ -501,7 +500,7 @@ export default function Tickets() {
                   className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
                   href={`/TicketTask/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
               >
-                  Ver Tareas Asociadas
+                  Asociar tarea
               </Link>
           </div>
           

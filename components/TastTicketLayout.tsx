@@ -16,7 +16,7 @@ export default function TicketLayout({
   producto_id: string;
   version_id: string;
 }) {
-  const createsTicket = !id_ticket;
+  const createsTicket = id_ticket;
   const router = useRouter();
 
 
@@ -84,12 +84,11 @@ export default function TicketLayout({
         })
         .catch((err) => router.push("/error"));
   }, []);
+
   const [taskticketInfo, setTaskTicketInfo] = useState({
     taskId: "",
-    ticketId: ticketInfo.id_ticket
+    ticketId: ""
   });
-  //creo q estyo no va 
-  //use effect 2. Cual es la diferencia??
 
   if (isLoading) {
     return(
@@ -107,12 +106,18 @@ export default function TicketLayout({
   }
 
   const handleTicketSubmit = () => {
+
+    //console.log("ticket_id = ", ticket?.id_ticket);
+    //console.log("taskticketinfo = ", taskticketInfo?.ticketId)
     
     setIsLoading(true);
 
     const method = "POST";
 
-    const body = createsTicket ? { ...taskticketInfo, id_ticket: ticket?.id_ticket } : { ...taskticketInfo, id_ticket: ticket?.id_ticket };
+    const body = createsTicket ? { ...taskticketInfo, ticketId: ticket?.id_ticket } : { ...taskticketInfo, ticketId: ticket?.id_ticket };
+    
+    console.log("taskticket__info = ", taskticketInfo?.ticketId)
+
     const options = {
       method,
       headers: {
@@ -120,7 +125,7 @@ export default function TicketLayout({
       },
       body: JSON.stringify(body),
     };
-    console.log("ticket info en handle ssubmit: ",ticketInfo)
+    console.log("ticket info en handle ssubmit: ",taskticketInfo)
     alert(taskticketInfo?.taskId);
     alert(taskticketInfo?.ticketId);
     const url = `https://soporte-psa-lor9.onrender.com/ticket/task`;
@@ -149,7 +154,7 @@ export default function TicketLayout({
   return (
     <div className="flex-1 justify-center">
       <h1 className="text-3xl font-bold">
-        {createsTicket ? "Crear ticket" : "Asociar Tarea"}
+        {createsTicket ? "Asociar Tarea" : "blablbal"}
       </h1>
       <div className="grid grid-cols-6 gap-4 mt-8">
         <div className="col-span-6">

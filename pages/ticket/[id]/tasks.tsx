@@ -4,79 +4,64 @@ import TicketGridRow from "@/components/ticketGridRow"; //traer ticketGrindRow
 import { useRouter } from 'next/router';
 import { Ticket, Tarea, TaskTicketAsoc } from "@/types/types";
 import useFetch from "@/hooks/useFetch";
+
 import TaskLayout from "@/components/TaskLayout";
 
 
 //import TicketCreate from "@/Components/TicketCreate";
 
-type PreviewTicketType = {
-    id_ticket: string,
-    nombre: string,
-    descripcion: string,
-    fecha_de_creacion: string,
-    estado: string,
-    severidad: string,
-    prioridad: string,
-    cliente: string,
-    asignado: string,   
-    comentarios: string,
-    
-    producto_id: string,
-    version_id: string,
+type PreviewTaskType = {
+    project_id: string
+    estado: string
+    fechaInicio: string
+    fechaFin: string
+    prioridad: string
+    asignado: string
+    titulo: string
+    id: string
+    descripcion: string
   };
   
   type ItemTableroType = {
-    tickets: Ticket[];
-    //estado: string;
-    //estadoLabel: string;
+      tareas: Tarea[];
   };
+type TaskTicket = {
+    taskId: string
+    ticketId: string
+}
 
-const Ticket = ({
-    id_ticket,
-    nombre,
-    descripcion,
-    fecha_de_creacion,
-    estado,
-    severidad,
-    prioridad,
-    cliente,
-    asignado,   
-    //comentarios,
-    producto_id,
-    version_id,
-    onClick,
-  }: PreviewTicketType & { onClick?: any }): JSX.Element => {
-    //const diasDesdeInicio = (fechaInicio: string): string => {
-    //   const fechaPasada = new Date(fechaInicio).getTime();
-    //   const fechaActual = new Date().getTime();
-  
-    //   const milisegundosPasados = fechaActual - fechaPasada;
-  
-    //   const diasPasados = Math.floor(milisegundosPasados / (1000 * 60 * 60 * 24));
-  
-    //   return `${diasPasados}d`;
-    //};
-
+const Tarea = ({
+                   project_id,
+                   estado,
+                   fechaInicio,
+                   fechaFin,
+                   prioridad,
+                   asignado,
+                   titulo,
+                   id,
+                   descripcion,
+                   onClick,
+  }: PreviewTaskType & { onClick?: any }): JSX.Element => {
     return (
         <article
           //className="flex flex-col p-4 bg-white	 rounded-xl m-8 c h-[150px] w-[250px] cursor-pointer"
           className ="rounded-md bg-zinc-300 border-4 border-zinc-600 px-4 py-2 my-2 cursor-pointer"
-          id={id_ticket}
-          onClick={() => onClick(id_ticket)}
+          id={id}
+          onClick={() => onClick(id)}
         >
         <div className="flex">
             <div className="flex-1 place-content-start ">
                 <p className="text-4xl m-0 font-bold" >  
                     {/* <span className="font-bold" >Nombre: </span> */}
-                    <span>{nombre}</span>
+                    <span>{titulo}</span>
                 </p>
                 <p className="m-0" >  
                     <span className="" >Descripción: </span>
                     <span>{descripcion}</span>
                 </p>
                 <p className="m-0" >  
-                    <span>fecha de creación: </span>
-                    <span>{fecha_de_creacion}</span>
+                    <span>fecha de inicio: </span>
+                    <span>{fechaInicio}</span>
                 </p>
             </div>
         
@@ -91,8 +76,8 @@ const Ticket = ({
                         <span>{asignado}</span>
                     </p>
                     <p className="ml-4" >  
-                        <span className= "font-bold">Severidad </span>
-                        <span>{severidad}</span>
+                        <span className= "font-bold">Proyecto </span>
+                        <span>{project_id}</span>
                     </p>
                 </div>
                 <div className="flex flex-row ">
@@ -101,46 +86,12 @@ const Ticket = ({
                         <span>{prioridad}</span>
                     </p>
                     <p className="ml-7" >  
-                        <span className= "  font-bold">Cliente </span>
-                        <span>{cliente}</span>
+                        <span className= "  font-bold">Fecha de fin </span>
+                        <span>{fechaFin}</span>
                     </p>
-                    {/* <p className="ml-5" >  
-                        <span className= "font-bold">Tareas asociadas </span>
-                        <span>{taras_asociadas}</span>
-                    </p>                 */}
                 </div>
             </div>
         </div>
-        
-        {/* <div className="place-self-center flex-2">   
-            <p className= "text-align: center p-1 font-bold ">
-                <Link
-                    className=" justify-self-center bg-zinc-50 hover:bg-zinc-100 text-black py-1 px-1"
-                    //href={`/soporte/${encodeURIComponent(id_ticket)}`}
-                    href={`/ticket/${id_ticket}?producto_id=${producto_id}?version_id=${version_id}`}
-                    
-                >  
-                ver tareas asocidas
-                </Link>
-            </p>
-        </div> 
-
-        <div className="ml-3 flex-3">
-            <p className= "relative left-10 font-bold ">
-                🗑️
-            </p>
-            <button className="">
-            <p className= "relative mt-5 self-center p-1 font-bold ">
-            <Link  className=""
-                href={`/ticket/${id_ticket}?version_id=${version_id}&producto_id=${producto_id}`}
-                >
-                <p className="text-base font-bold uppercase">{"EDITAR"}</p>
-            </Link>
-            Editar
-            </p>            
-            </button>
-        </div>
-         */}
         </article>
 
       );
@@ -148,42 +99,16 @@ const Ticket = ({
 
 
 const ListadoItem = ({
-    tickets,
+    tareas,
     onClick
-    // id_ticket,
-    // nombre,
-    // descripcion,
-    // fecha_de_creacion,
-    // estado,
-    // severidad,
-    // prioridad,
-    // cliente,
-    // asignado,   
-    // //comentarios,
-    // producto_id,
-    // version_id,
 
 }: ItemTableroType & { onClick?: any }): JSX.Element => {
-    //const filteredTickets = tareas.filter((ticket) => ticket.estado === asignado);
-
-    // Ticket): JSX.Element => {
-    // const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
-    // //const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
-    // const [show, setShow] = useState<boolean>(false);
-    // //const router = useRouter();
-
-    
-
-    // if (!fechaInicio || !fechaFin) {
-    //   // Hay que chequear si deberia poder no establecer fechas
-    //   return <></>;
-    // }
     return (    
         
         <div className="">
         <div>
-          {tickets.map((ticket) => (
-            <Ticket {...ticket} onClick={onClick} />
+          {tareas.map((tarea) => (
+            <Tarea {...tarea} onClick={onClick} />
           ))}
         </div>
       </div>
@@ -191,44 +116,27 @@ const ListadoItem = ({
   };
 
 
-  // const [taskInfo, setTaskInfo] = useState({
-  //   project_id,
-  //   fechaInicio: "",
-  //   fechaFin: "",
-  //   estado: DEFAULT_SELECT_VALUE,
-  //   prioridad: DEFAULT_SELECT_VALUE,
-  //   asignado: DEFAULT_SELECT_VALUE,
-  //   titulo: "",
-  //   id: "",
-  //   descripcion: "",
-  // }
+export default function TaskswithTicket() {
 
-
-export default function Tickets() {
-    
     const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
     const [tareas, setTareas] = useState<Tarea[]>([]);
     const [asoc, setTaskTicketAsoc] = useState<TaskTicketAsoc[]>([]);
 
-    const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
-    const [searchName, setSearchName] = useState<string>("");    
-    
+    const [filteredList, setFilteredList] = useState<Tarea[] | null>(null);
+    const [searchName, setSearchName] = useState<string>("");
+    const [taskticketInfo, setTaskTicketInfo] = useState({
+        taskId: "",
+        ticketId: ""
+    });
     const router = useRouter();
     const [show, setShow] = useState<boolean>(false);
     const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
-    const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
-   
-    const { data, error, loading, fetchData } = useFetch<Ticket[]>();
+    const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
+
+    const { data, error, loading, fetchData } = useFetch<Tarea[]>();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-    var product_id = '0';
-    var version_id = '0';
-    if (typeof window !== 'undefined') {
-        var urlString = window.location.href;
-        var url = new URL(urlString);
-        product_id = url.pathname.split('/')[2];
-        version_id = url.pathname.split('/')[3];
-    }
-    const fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${product_id}/${version_id}`;
+
+    const fetch_url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
     //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
 
     console.log(data);
@@ -270,36 +178,8 @@ export default function Tickets() {
         return;
       }
       if (!data) return;
-  
-    
-    //#BORRAR SI SE ROMPE TODO
-    //Aociation
-    //FALTA COMPLETAR
-    //tendria q mandar el ticket y traer tareas con su proyecto asociado
-    // useEffect(() => {
-    //   //setIsLoading(true);
-  
-    //   const options = {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-    //   const url = `https://soporte-psa-lor9.onrender.com//ticket/${ticketId}/task`;
-  
-    //   fetch(url, options)
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       setTareas(res);
-    //       //setIsLoading(false);
-    //     })
-    //     .catch((err) => router.push("/error"));
-    // }, []);
-  
-    
-    
 
-    //#BORRAR SI SE ROMPE TODO
+
     const generateTicketTaskAsoc = (id: string, id_tarea: string, id_proyecto:string, onSuccess?: Function) => {
       // const deleteUrl = "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
       //#TODO ACA HAY Q GENERAR LA ASOCIACION NO SE COMO...
@@ -320,32 +200,48 @@ export default function Tickets() {
           })
           .catch((err) => router.push("/error"));
       };
-    
-    const handleTicketTaskAsoc = async (id?: string) => {
-          const url_proyectos = ` https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos,`; //cambiar luego a ulr
-          console.log("tarea_id en handledelteticket:",id )
-          const closeModal = () => {
-              //setShow(false);
-              //setWantsToDelete(false);
-              //setSelectedTicket(null);
-          };
-          var id_tarea = "1"
-          var id_proyecto = "32"
-          if (id) {
-            generateTicketTaskAsoc(id, id_tarea,id_proyecto, closeModal);
-          } else {
-              closeModal();
-          }
-          };
-      
-  
-    
-      //TIKCET DELETE
-    const handleTicketSelection = (id: string): void => {
+
+    const handleTicketTaskAsoc = async () => {
+        const method = "POST";
+        if (selectedTask != null && router.query.id) {
+            const body = { ...taskticketInfo, ticketId: Array.isArray(router.query.id) ? router.query.id[0] : router.query.id, taskId: selectedTask.id }
+            alert(body.ticketId);
+            alert(body.taskId);
+            const method = "POST";
+            const options = {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            };
+            const url = `https://soporte-psa-lor9.onrender.com/ticket/task`;
+            fetch(url, options)
+                .then((res) => res.json())
+                .then((res) => {
+                    setShow(false);
+                    setWantsToDelete(false);
+                    setSelectedTask(null);
+                    handleSuccessAssociation();
+                })
+                .catch((err) => {
+                        setShow(false);
+                        setWantsToDelete(false);
+                        setSelectedTask(null);
+                    }
+                )
+
+            //TIKCET DELETE
+        }
+    };
+    const handleSuccessAssociation = async () => {
+        //aca va una ventana de que se asocio con exito
+    }
+    const handleTaskSelection = (id: string): void => {
       
         setShow(!show);
-        const ticketToOpen = data.find((ticket) => ticket.id_ticket === id);
-        if (!ticketToOpen) {
+        const tareaToOpen = data.find((tarea) => tarea.id === id);
+        if (!tareaToOpen) {
           return;
         }
         
@@ -369,54 +265,17 @@ export default function Tickets() {
           .catch((err) => router.push("/error"));
         
         console.log("tareas en ticket selectionmnn", asoc);
-       
-      
-        //FETCH DE NOMBRES DE TASKS ASOC A TICKETS
-        
-       //PREOBLMA, NO SE PUEDEN DEFINIR constantes en foreach
-       //probelma 2 en map no ppuedo tener otro fetch
 
-        //const url_fetch_tareas = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
-        
-        //LEEEEEEEEER
-        //no se como hacer esto, por cada fecth me trae una sola tarea y x cada sola tarea necesito
-        //convertirlo a un listado de tareas para poder hacer el map abajo.
-        //IMPORTANTISMO: SI SE USA LA API DE GONZALO DE MYSJONSERVER
-        //PARA TRAER /TAREAS/ID OJO XQ DEVUELVE UN {INFO TAREA}
-        //HAY Q PONERLE [] PARA CONVERTIRLO EN ARRAY Y PODERLE APLICAR MAP
-        // ASI SE SOLUCIONA EL BLABL.MAP is not a function
-        //el problema igual no es ese... sino lo anterior. no se como hacer los loops
-        //SUGIERO PARA SALIR DEL APURO YA  QM HOY ES DOMINGO
-        // CONVERTIRLO EN UN BOTON QUE LLEVE UNA VENTANA APARTE, igualmente, hay q ver
-        //como hacer xq para mnostrar texto de estas cosas por panatllas solo sabemos
-        //hacerlo con el .map y eso solo funciona con estos objetos de la clase setblabla
-
-      // asoc.map((asoc) =>
-      //     fetch(url_fetch_tareas+asoc.taskId, options)
-      //     .then((res) => res.json())
-      //     .then((res) => {
-      //       setTareas([res]);
-
-      //       tareas.map((tarea) =>
-      //       listado_tareas.push(tarea.titulo)
-      //       )
-          
-      //   })
-      // );
-      // console.log(listado_tareas)
-      // //listado_tareas => listado_tareas.json()
-      // setListadoTareas(listadoTareas);
-               
-        //ABRIR MOCK CON TAREA
-        setSelectedTicket(ticketToOpen);
+        setSelectedTask(tareaToOpen);
       };
-    
+
+
     const handleTicketDelete = async (id?: string) => {
     console.log("tarea_id en handledelteticket:",id )
     const closeModal = () => {
         setShow(false);
         setWantsToDelete(false);
-        setSelectedTicket(null);
+        setSelectedTask(null);
     };
 
     if (id) {
@@ -449,8 +308,8 @@ export default function Tickets() {
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data) {
-        const filteredTickets = data.filter((ticket) =>
-        ticket?.nombre?.toLowerCase().includes(searchName?.toLowerCase())
+        const filteredTickets = data.filter((tarea) =>
+        tarea?.titulo?.toLowerCase().includes(searchName?.toLowerCase())
         );
 
         setFilteredList(filteredTickets);
@@ -465,7 +324,7 @@ export default function Tickets() {
           
     return (
       <div className="flex-1">
-        <h1 className="text-3xl font-bold">Listado De Tickets</h1>
+        <h1 className="text-3xl font-bold">Listado De Tareas</h1>
         <div className="flex justify-between items-center pt-8">
           <form
             onSubmit={handleSearch}
@@ -485,18 +344,18 @@ export default function Tickets() {
           <Link
             
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href={`/ticket/?producto_id=${productid}&version_id=${versionid}`}
+            href={`/proyectos`}
           >
-            Crear ticket ✚
+            Crear Tarea ✚
           </Link>
         </div>
 
         <div className="mt-8 flex flex-col justify-center">
             <ListadoItem
-              tickets={data}
+              tareas={data}
               //estado={"Sin Comenzar"}
               //estadoLabel={"Sin comenzar"}
-              onClick={handleTicketSelection}
+              onClick={handleTaskSelection}
             />
           {/* {!currentList || currentList.length < 1 ? (
             <h1 className="self-center">
@@ -513,88 +372,72 @@ export default function Tickets() {
         show={show && !wantsToDelete}
         onClick={() => {
           setShow(false);
-          setSelectedTicket(null);
+          setSelectedTask(null);
         }}
       >
         <div className="grid grid-cols-2 px-2 py-2 mt-2 border border-black p-4">
           <div className="flex w-80 mb-5">
             <h2 className="col-span-2 text-2xl font-semibold">
-              {selectedTicket?.nombre}
+              {selectedTask?.titulo}
             </h2>
           </div>
 
           <p className="col-span-2 font-semibold">Descripción</p>
-          <p className="col-span-2 mb-5">{selectedTicket?.descripcion}</p>
+          <p className="col-span-2 mb-5">{selectedTask?.descripcion}</p>
 
           <p className="font-semibold">Estado</p>
           <p className="font-semibold">Prioridad</p>
-          <p className="mb-5">{selectedTicket?.estado}</p>
-          <p className="mb-5">{selectedTicket?.prioridad}</p>
+          <p className="font-semibold">Proyecto</p>
+          <p className="mb-5">{selectedTask?.estado}</p>
+          <p className="mb-5">{selectedTask?.prioridad}</p>
+          <p className="mb-5">{selectedTask?.project_id}</p>
 
-          {selectedTicket?.fecha_de_creacion && (
+          {selectedTask?.fechaInicio && (
             <div>
               <p className="font-semibold">Fecha de inicio</p>
-              <p className="mb-5">{selectedTicket.fecha_de_creacion}</p>
+              <p className="mb-5">{selectedTask?.fechaInicio}</p>
             </div>
           )}
-          {selectedTicket?.cliente && (
+          {selectedTask?.fechaFin && (
             <div>
               <p className="font-semibold">Fecha de fin</p>
-              <p className="mb-5">{selectedTicket.cliente}</p>
+              <p className="mb-5">{selectedTask?.fechaFin}</p>
             </div>
           )}
-          <div className="flex mb-5">
+          {selectedTask?.project_id && (
+              <div>
+                  <p className="font-semibold">Proyecto</p>
+                  <p className="mb-5">{selectedTask?.project_id}</p>
+              </div>
+          )}
+          <div>
             <p className="font-semibold mr-2">Asignada a</p>
-            <p className="col-span-2">{selectedTicket?.asignado}</p>
+            <p className="col-span-2">{selectedTask?.asignado}</p>
           </div>
-        
           <div className="flex mb-5">
-            <p className="font-semibold mr-2">Tareas asociadas</p>
-            <p> </p>
-            {/* donde dice asoc deberia ir tareas pero como puse arriba 
-            no se como guardar TODAS las atreas en el ;istado de tareas 
-            ya que fetch con eltaskId nos trae una a la vez */}
-            
-            {
-              asoc.map((tarea) => {
-                console.log("lololo",tarea.taskId);
-                const fullName = `${tarea.taskId}`;
-                return (
-                  <option id={tarea.taskId} value={fullName}>
-                    {fullName}
-                  </option>
-                );
-              })
-                        
-            }
-              
-          </div>
-
-          <div className="flex mb-5">
-              <Link
-                  className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-                  href={`/ticket/${selectedTicket?.id_ticket}/tasks`}
-                  //href={`/TicketTask/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
-              >
-                  Asociar tarea
-              </Link>
           </div>
           
         </div>
-        <div className="flex flex-1 justify-end items-end gap-8">
-          <button
-            className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-            onClick={() => setWantsToDelete(true)}
-          >
-            Eliminar
-          </button>
-          <Link
-            className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-            href={`/ticket/${selectedTicket?.id_ticket}?producto_id=${selectedTicket?.producto_id}&version_id=${selectedTicket?.version_id}`}
-          >
-            Editar
-          </Link>
-        </div>
+            <div className="flex justify-between items-end gap-8">
+                <button
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
+                    onClick={() => {
+                        setShow(false);
+                        setWantsToDelete(false);
+                        setSelectedTask(null);
+                    }}
+                >
+                    Volver
+                </button>
+
+                <button
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
+                    onClick={() =>
+                        handleTicketTaskAsoc()}
+                >
+                    Asociar Tarea a Ticket
+                </button>
+            </div>
       </Modal>
       <Modal
         className={"w-[500px] h-[360px] border border-black p-8"}
@@ -602,7 +445,7 @@ export default function Tickets() {
         onClick={() => {
           setShow(false);
           setWantsToDelete(false);
-          setSelectedTicket(null);
+          setSelectedTask(null);
         }}
       >
         <div className="flex flex-col">
@@ -619,7 +462,7 @@ export default function Tickets() {
           <div className="flex flex-1 justify-end mt-7 items-end gap-8 items-center">
             <button
               className="bg-red-500	hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-              onClick={() => handleTicketDelete(selectedTicket?.id_ticket)}
+              onClick={() => handleTicketDelete(selectedTask?.id)}
             >
               Confirmar
             </button>
@@ -628,7 +471,7 @@ export default function Tickets() {
               onClick={() => {
                 setShow(false);
                 setWantsToDelete(false);
-                setSelectedTicket(null);
+                setSelectedTask(null);
               }}
             >
               Cancelar

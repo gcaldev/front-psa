@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import TicketGridRow from "@/components/ticketGridRow"; //traer ticketGrindRow
 import { useRouter } from 'next/router';
-import { Ticket, Tarea, TaskTicketAsoc } from "@/types/types";
+import {Ticket, Tarea, TaskTicketAsoc, Proyecto, Recurso, Cliente} from "@/types/types";
 import useFetch from "@/hooks/useFetch";
 import TaskLayout from "@/components/TaskLayout";
 
@@ -203,13 +203,35 @@ const ListadoItem = ({
   //   descripcion: "",
   // }
 
+function buscarNombredeRecurso(recursos: Recurso[] | null | undefined, recursoLegajo: string | null | undefined): string {
+    if (!recursoLegajo )
+        return '??';
+    if(!recursos) {
+        return recursoLegajo;
+    }
 
+    const proyectoEncontrado = recursos.find(proyecto => parseInt(proyecto.legajo,10) === parseInt(recursoLegajo,10));
+
+    return proyectoEncontrado ? proyectoEncontrado.nombre+' '+proyectoEncontrado.apellido : recursoLegajo;
+}
+function buscarNombredeCliente(clientes: Cliente[] | null | undefined, clienteId: string | null | undefined): string {
+    if (!clienteId )
+        return '??';
+    if(!clientes) {
+        return clienteId;
+    }
+
+    const proyectoEncontrado = clientes.find(cliente => parseInt(cliente.id,10) === parseInt(clienteId,10));
+
+    return proyectoEncontrado ? proyectoEncontrado.razonSocial : clienteId;
+}
 export default function Tickets() {
     
     const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
     const [tareas, setTareas] = useState<Tarea[]>([]);
     const [asoc, setTaskTicketAsoc] = useState<TaskTicketAsoc[]>([]);
-
+    const [recursos, setRecursos] = useState<Recurso[]>();
+    const [clientes, setClientes] = useState<Cliente[]>();
     const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
     const [searchName, setSearchName] = useState<string>("");    
     
@@ -230,7 +252,44 @@ export default function Tickets() {
     }
     const fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${product_id}/${version_id}`;
     //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
+    useEffect(() => {
+        //setIsLoading(true);
 
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `https://soporte-psa-lor9.onrender.com/Recursos`;
+
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setRecursos(res);
+                ///setIsLoading(false);
+            })
+            .catch((err) => router.push("/error"));
+    }, []);
+    useEffect(() => {
+        //setIsLoading(true);
+
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `https://soporte-psa-lor9.onrender.com/Clientes`;
+
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setClientes(res);
+                ///setIsLoading(false);
+            })
+            .catch((err) => router.push("/error"));
+    }, []);
     console.log(data);
     useEffect(() => {
       if (router.isReady) {
@@ -539,13 +598,13 @@ export default function Tickets() {
           )}
           {selectedTicket?.cliente && (
             <div>
-              <p className="font-semibold">Fecha de fin</p>
-              <p className="mb-5">{selectedTicket.cliente}</p>
+              <p className="font-semibold">Cliente</p>
+              <p className="mb-5">{buscarNombredeCliente(clientes,selectedTicket.cliente)}</p>
             </div>
           )}
           <div className="flex mb-5">
             <p className="font-semibold mr-2">Asignada a</p>
-            <p className="col-span-2">{selectedTicket?.asignado}</p>
+            <p className="col-span-2">{buscarNombredeRecurso(recursos,selectedTicket?.asignado)}</p>
           </div>
         
           <div className="flex mb-5">

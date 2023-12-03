@@ -427,7 +427,7 @@ export default function TaskswithTicket() {
                 <button
                     className="bg-red-500 hover:bg-red-800 text-white font-bold py-1 px-4 rounded"
                     onClick={() =>
-                        handleBorrarAsoc()}
+                        setWantsToDelete(true)}
                 >
                     Borrar Asociacion
                 </button>
@@ -455,32 +455,32 @@ export default function TaskswithTicket() {
         <div className="flex flex-col">
           <div className="border border-black p-4 mt-2">
             <p className="font-bold mb-4 mt-4 text-center">
-              ¿Está seguro de que desea eliminar la tarea seleccionada?
+              ¿Está seguro de que desea eliminar la asociación?
             </p>
             <p className="mb-5">
-              Esta acción no se puede deshacer y toda la información asociada a
-              esta tarea se perderá. Por favor, confirme su decisión antes de
-              proceder.
+              Esta acción no se puede deshacer.
+              Por favor, confirme su decisión antes de proceder.
             </p>
           </div>
-          <div className="flex flex-1 justify-end mt-7 items-end gap-8 items-center">
-            <button
-              className="bg-red-500	hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-              onClick={() => handleTicketDelete(selectedTask?.id)}
-            >
-              Confirmar
-            </button>
-            <button
-              className="font-bold text-sky-500	hover:text-cyan-600"
-              onClick={() => {
-                setShow(false);
-                setWantsToDelete(false);
-                setSelectedTask(null);
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
+            <div className="flex justify-between mt-7 items-center gap-8">
+                <button
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
+                    onClick={() => handleBorrarAsoc()}
+                >
+                    Confirmar
+                </button>
+                <button
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
+                    onClick={() => {
+                        setShow(false);
+                        setWantsToDelete(false);
+                        setSelectedTask(null);
+                    }}
+                >
+                    Cancelar
+                </button>
+            </div>
+
         </div>
       </Modal>
 

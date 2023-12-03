@@ -443,7 +443,7 @@ export default function Tickets() {
         fetchData(fetch_url, "GET");
         onSuccess?.();
         })
-        .catch((err) => router.push("/error"));
+        .catch((err) => location.reload());
     };
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {

@@ -205,8 +205,6 @@ export default function TaskswithTicket() {
         const method = "POST";
         if (selectedTask != null && router.query.id) {
             const body = { ...taskticketInfo, ticketId: Array.isArray(router.query.id) ? router.query.id[0] : router.query.id, taskId: selectedTask.id }
-            alert(body.ticketId);
-            alert(body.taskId);
             const method = "POST";
             const options = {
                 method,

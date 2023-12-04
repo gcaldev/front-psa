@@ -566,7 +566,7 @@ export default function Tickets() {
            */}
         </div>
         <Modal
-        className={"h-[550px] w-[500px] border border-black p-4"}
+        className={"grid border border-black p-4"}
         show={show && !wantsToDelete}
         onClick={() => {
           setShow(false);
@@ -606,7 +606,8 @@ export default function Tickets() {
           </div>
         
           <div className="flex mb-5">
-            <p className="font-semibold mr-2">Tareas asociadas</p>
+            <p className="font-semibold mr-2">Comentarios:</p>
+              <p className="mb-5">{selectedTicket?.comentarios.substring(0,20)}</p>
             <p> </p>
             {/* donde dice asoc deberia ir tareas pero como puse arriba 
             no se como guardar TODAS las atreas en el ;istado de tareas 

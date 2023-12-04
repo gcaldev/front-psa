@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {create} from "domain";
 
-const DEFAULT_SELECT_VALUE = "Elegir";
-
+const DEFAULT_SELECT_VALUE = "";
+const today = new Date();
 export default function TicketLayout({
   id_ticket ="",
   producto_id,
@@ -164,42 +164,54 @@ export default function TicketLayout({
   }
 
   const handleTicketSubmit = () => {
-    
-    setIsLoading(true);
+    if(!ticketInfo.fecha_de_creacion) {
+      alert('No se puede crear un ticket sin fecha de creacion');
+    } else if (!ticketInfo.nombre){
+      alert('No se puede crear un ticket sin nombre');
+    } else if (!ticketInfo.descripcion) {
+      alert('No se puede crear un ticket sin descripcion');
+    } else if (ticketInfo.cliente == DEFAULT_SELECT_VALUE) {
+      alert('No se puede crear un ticket sin cliente');
+    } else if (ticketInfo.severidad == DEFAULT_SELECT_VALUE) {
+      alert('No se puede crear un ticket sin severidad');
+    }  else if (ticketInfo.prioridad == DEFAULT_SELECT_VALUE) {
+      alert('No se puede crear un ticket sin prioridad');
+    } else {
+      setIsLoading(true);
 
-    const method = createsTicket ? "POST" : "PUT";
-    const body = createsTicket ? { ...ticketInfo, id: undefined } : ticketInfo;
-    const options = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-    console.log("ticket info en handle ssubmit: ",ticketInfo)
+      const method = createsTicket ? "POST" : "PUT";
+      const body = createsTicket ? {...ticketInfo, id: undefined} : ticketInfo;
+      const options = {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      };
+      console.log("ticket info en handle ssubmit: ", ticketInfo)
 
-    const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
+      const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
 
-    //const url = `https://my-json-server.typicode.com/
-    //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
-    console.log(options, "INFO");
-    fetch(url, options)
-      .then((res) => res.json())
-      .then((res) => {
-        router.push(
-            createsTicket
-                ? `/soporte/${producto_id}/${version_id}`
-                : `/soporte/${producto_id}/${version_id}`
-        );
+      //const url = `https://my-json-server.typicode.com/
+      //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
+      console.log(options, "INFO");
+      fetch(url, options)
+          .then((res) => res.json())
+          .then((res) => {
+            router.push(
+                createsTicket
+                    ? `/soporte/${producto_id}/${version_id}`
+                    : `/soporte/${producto_id}/${version_id}`
+            );
 
-      })
-      
-      .catch((err) => router.push(
-          createsTicket
-              ? `/soporte/${producto_id}/${version_id}`
-              : `/soporte/${producto_id}/${version_id}`
-      ));
-  };
+          })
+
+          .catch((err) => router.push(
+              createsTicket
+                  ? `/soporte/${producto_id}/${version_id}`
+                  : `/soporte/${producto_id}/${version_id}`
+          ));
+    }};
 
   return (
     <div className="flex-1 justify-center">
@@ -321,7 +333,7 @@ export default function TicketLayout({
         </div>
         <div className="col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900">
-            cliente FALTA API
+            Cliente
           </label>
           <select
             id="countries"
@@ -347,13 +359,27 @@ export default function TicketLayout({
             Descripción
           </label>
           <textarea
-            rows={4}
+            rows={2}
             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Write your thoughts here..."
             onChange={(e) =>
               setTicketInfo((prev) => ({ ...prev, descripcion: e.target.value }))
             }
             value={ticketInfo.descripcion}
+          ></textarea>
+        </div>
+        <div className="col-span-6">
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Comentarios
+          </label>
+          <textarea
+              rows={2}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Write your thoughts here..."
+              onChange={(e) =>
+                  setTicketInfo((prev) => ({ ...prev, comentarios: e.target.value }))
+              }
+              value={ticketInfo.comentarios}
           ></textarea>
         </div>
       </div>
@@ -364,7 +390,7 @@ export default function TicketLayout({
           className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
           onClick={handleTicketSubmit}
         >
-          {createsTicket ? "Crear ticket" : "Editar ticket"}
+          {createsTicket ? "Crear ticket" : "Guardar Ticket"}
         </button>
       </div>
     </div>

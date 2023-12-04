@@ -35,7 +35,7 @@ const Tarea = ({
     const milisegundosPasados = fechaActual - fechaPasada;
 
     const diasPasados = Math.floor(milisegundosPasados / (1000 * 60 * 60 * 24));
-    if (diasPasados < 0) return null;
+    if (diasPasados <= 0) return null;
     return `${diasPasados}d`;
   };
 

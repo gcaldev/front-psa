@@ -1,4 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Link de interés
+[Deploy del Front](https://front-psa.vercel.app/home)
+
+[Backend de Proyectos](https://back-proyectos-psa-2.onrender.com/)
+
+
+[Backend de Soporte](https://soporte-psa-lor9.onrender.com/)
+
+Se recomienda entrar a estos 2 enlaces con antelación antes de utilizar el front ya que si no se usaron por 
+un período de tiempo no muy largo, se apagan y pueden tardar en volver a estar en linea.
 
 ## Getting Started
 

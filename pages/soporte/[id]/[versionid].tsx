@@ -41,7 +41,7 @@ const Ticket = ({
     prioridad,
     cliente,
     asignado,   
-    //comentarios,
+    comentarios,
     producto_id,
     version_id,
     onClick,
@@ -550,7 +550,7 @@ export default function Tickets() {
 
         <div className="mt-8 flex flex-col justify-center">
             <ListadoItem
-              tickets={data.filter(ticket => ticket.nombre.includes(searchName))}
+              tickets={data.filter(ticket => ticket.nombre.toLowerCase().includes(searchName.toLowerCase()))}
               //estado={"Sin Comenzar"}
               //estadoLabel={"Sin comenzar"}
               onClick={handleTicketSelection}

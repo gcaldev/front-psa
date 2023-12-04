@@ -6,6 +6,7 @@ import {create} from "domain";
 
 const DEFAULT_SELECT_VALUE = "";
 const today = new Date();
+
 export default function TicketLayout({
   id_ticket ="",
   producto_id,
@@ -34,7 +35,10 @@ export default function TicketLayout({
     descripcion: "",
     comentarios: "",
   });
+  const [showExtraMessage, setShowExtraMessage] = useState<boolean>(false);
+  const [extraMessage, setExtraMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(!createsTicket);
+  const [goBack, setGoBack] = useState<boolean>(false);
   console.log("en ticket layout", {
     id_ticket,
     producto_id,
@@ -165,19 +169,25 @@ export default function TicketLayout({
 
   const handleTicketSubmit = () => {
     if(!ticketInfo.fecha_de_creacion) {
-      alert('No se puede crear un ticket sin fecha de creacion');
+      setExtraMessage("No se puede crear o guardar un ticket sin fecha de creación")
+      setShowExtraMessage(true);
     } else if (!ticketInfo.nombre){
-      alert('No se puede crear un ticket sin nombre');
+      setExtraMessage("No se puede crear o guardar un ticket sin nombre")
+      setShowExtraMessage(true);
     } else if (!ticketInfo.descripcion) {
-      alert('No se puede crear un ticket sin descripcion');
+      setExtraMessage("No se puede crear o guardar un ticket sin descripción")
+      setShowExtraMessage(true);
     } else if (ticketInfo.cliente == DEFAULT_SELECT_VALUE) {
-      alert('No se puede crear un ticket sin cliente');
+      setExtraMessage("No se puede crear o guardar un ticket sin cliente")
+      setShowExtraMessage(true);
     } else if (ticketInfo.severidad == DEFAULT_SELECT_VALUE) {
-      alert('No se puede crear un ticket sin severidad');
+      setExtraMessage("No se puede crear o guardar un ticket sin severidad")
+      setShowExtraMessage(true);
     }  else if (ticketInfo.prioridad == DEFAULT_SELECT_VALUE) {
-      alert('No se puede crear un ticket sin prioridad');
+      setExtraMessage("No se puede crear o guardar un ticket sin prioridad")
+      setShowExtraMessage(true);
     } else {
-      setIsLoading(true);
+      //setIsLoading(true);
 
       const method = createsTicket ? "POST" : "PUT";
       const body = createsTicket ? {...ticketInfo, id: undefined} : ticketInfo;
@@ -198,12 +208,10 @@ export default function TicketLayout({
       fetch(url, options)
           .then((res) => res.json())
           .then((res) => {
-            router.push(
-                createsTicket
-                    ? `/soporte/${producto_id}/${version_id}`
-                    : `/soporte/${producto_id}/${version_id}`
-            );
-
+            createsTicket
+                  ? setExtraMessage("Ticket creado con éxito ")
+                  : setExtraMessage("Ticket modificado con éxito");
+            setGoBack(true);
           })
 
           .catch((err) => router.push(
@@ -393,6 +401,94 @@ export default function TicketLayout({
           {createsTicket ? "Crear ticket" : "Guardar Ticket"}
         </button>
       </div>
+      <Modal
+          className={"grid border border-black p-8"}
+          show={showExtraMessage}
+          onClick={() => {
+            setShowExtraMessage(false);
+          }}
+      >
+        <div className="flex flex-col">
+          <div className="mt-2">
+            <p className="mb-5">
+              {extraMessage}
+            </p>
+          </div>
+          <div className="flex flex-1 justify-center mt-7 items-end gap-8 items-center">
+            <button
+                className="bg-green-500	hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
+                onClick={() => setShowExtraMessage(false)}
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+          className={"grid border border-black p-8"}
+          show={goBack}
+          onClick={() => {
+            setGoBack(false);
+            router.push(
+                createsTicket
+                    ? `/soporte/${producto_id}/${version_id}`
+                    : `/soporte/${producto_id}/${version_id}`
+            );
+          }}
+      >
+        <div className="flex flex-col">
+          <div className="mt-2">
+            <p className="mb-5">
+              {extraMessage}
+            </p>
+          </div>
+          <div className="flex flex-1 justify-center mt-7 items-end gap-8 items-center">
+            <button
+                className="bg-green-500	hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
+                onClick={() => {
+                  setGoBack(false);
+                  router.push(
+                      createsTicket
+                          ? `/soporte/${producto_id}/${version_id}`
+                          : `/soporte/${producto_id}/${version_id}`
+                  );
+                }}
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
+const Modal = ({
+                 show,
+                 children,
+                 onClick,
+                 className,
+               }: {
+  show?: boolean;
+  children: React.ReactNode;
+  onClick: any;
+  className?: string;
+}): JSX.Element => {
+  if (!show) {
+    return <></>;
+  }
+  return (
+      <>
+        <div className="flex justify-center items-center fixed top-0 left-0 z-10 h-screen w-screen">
+          <div
+              className={`flex flex-col bg-white p-8 rounded ${className ?? ""}`}
+          >
+            <button className="font-bold text-3xl self-end" onClick={onClick}>
+              ✕
+            </button>
+            {children}
+          </div>
+        </div>
+        <div className="fixed top-0 left-0 h-screen w-screen bg-zinc-900 opacity-30 !overflow-hidden"></div>
+      </>
+  );
+};

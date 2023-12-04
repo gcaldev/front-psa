@@ -183,14 +183,14 @@ export default function TableroLayout() {
           <div className="flex-1 grid grid-cols-4 gap-8 my-8 bg-zinc-100 gap-8">
             <ItemTablero
               tareas={data}
-              estado={"Sin Comenzar"}
-              estadoLabel={"Sin comenzar"}
+              estado={"No Iniciado"}
+              estadoLabel={"No Iniciado"}
               onClick={handleTaskSelection}
             />
             <ItemTablero
               tareas={data}
               estado={"En Progreso"}
-              estadoLabel={"En progreso"}
+              estadoLabel={"En Progreso"}
               onClick={handleTaskSelection}
             />
             <ItemTablero

@@ -109,7 +109,12 @@ export default function TaskLayout({
     setIsLoading(true);
 
     const method = createsTask ? "POST" : "PUT";
-    const body = createsTask ? { ...taskInfo, id: undefined } : taskInfo;
+    const body = {
+      ...taskInfo,
+      id: createsTask ? undefined : taskInfo.id,
+      fechaInicio: taskInfo.fechaInicio ?? undefined,
+      fechaFin: taskInfo.fechaFin ?? undefined,
+    };
     const options = {
       method,
       headers: {
@@ -195,8 +200,8 @@ export default function TaskLayout({
             }
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="Sin Comenzar">Sin comenzar</option>
-            <option value="En Progreso">En progreso</option>
+            <option value="No Iniciado">No Iniciado</option>
+            <option value="En Progreso">En Progreso</option>
             <option value="Finalizado">Terminado</option>
             <option value="Bloqueado">Bloqueado</option>
           </select>

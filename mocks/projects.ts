@@ -12,7 +12,7 @@ export const MANY_PROJECTS = [
     {
       id: "5",
       lider: "Roberto",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto E",
@@ -36,7 +36,7 @@ export const MANY_PROJECTS = [
     {
       id: "8",
       lider: "Elena",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto H",
@@ -60,7 +60,7 @@ export const MANY_PROJECTS = [
     {
       id: "11",
       lider: "Hector",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto K",
@@ -84,7 +84,7 @@ export const MANY_PROJECTS = [
     {
       id: "14",
       lider: "Isabel",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto N",
@@ -108,7 +108,7 @@ export const MANY_PROJECTS = [
     {
       id: "17",
       lider: "Alejandro",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto Q",
@@ -132,7 +132,7 @@ export const MANY_PROJECTS = [
     {
       id: "20",
       lider: "Adriana",
-      estado: "sin comenzar",
+      estado: "No Iniciado",
       fechaInicio: null,
       fechaFin: null,
       nombre: "Proyecto T",
@@ -142,7 +142,7 @@ export const MANY_PROJECTS = [
 export const MANY_TASKS = [
     {
       projectId: "1",
-      estado: "Sin Comenzar",
+      estado: "No Iniciado",
       fechaInicio: "2023-10-25",
       fechaFin: "2023-11-01",
       prioridad: "Baja",
@@ -186,7 +186,7 @@ export const MANY_TASKS = [
     },
     {
       projectId: "5",
-      estado: "Sin Comenzar",
+      estado: "No Iniciado",
       fechaInicio: "2023-11-10",
       fechaFin: "2023-11-25",
       prioridad: "Baja",
@@ -230,7 +230,7 @@ export const MANY_TASKS = [
     },
     {
       projectId: "9",
-      estado: "Sin Comenzar",
+      estado: "No Iniciado",
       fechaInicio: "2023-11-30",
       fechaFin: "2023-12-15",
       prioridad: "Alta",
@@ -274,7 +274,7 @@ export const MANY_TASKS = [
     },
     {
       projectId: "13",
-      estado: "Sin Comenzar",
+      estado: "No Iniciado",
       fechaInicio: "2023-12-20",
       fechaFin: "2024-01-05",
       prioridad: "Media",
@@ -318,7 +318,7 @@ export const MANY_TASKS = [
     },
     {
       projectId: "17",
-      estado: "Sin Comenzar",
+      estado: "No Iniciado",
       fechaInicio: "2024-01-10",
       fechaFin: "2024-01-25",
       prioridad: "Baja",

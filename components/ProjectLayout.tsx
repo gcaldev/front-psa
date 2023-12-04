@@ -69,9 +69,12 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
     setIsLoading(true);
 
     const method = createsProject ? "POST" : "PUT";
-    const body = createsProject
-      ? { ...projectInfo, id: undefined }
-      : projectInfo;
+    const body = {
+      ...projectInfo,
+      id: createsProject ? undefined : projectInfo.id,
+      fechaInicio: projectInfo.fechaInicio ?? undefined,
+      fechaFin: projectInfo.fechaFin ?? undefined,
+    };
 
     const options = {
       method,
@@ -204,8 +207,8 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
             }
           >
             <option value={DEFAULT_SELECT_VALUE}>Elegir</option>
-            <option value="Sin Comenzar">Sin comenzar</option>
-            <option value="En Progreso">En progreso</option>
+            <option value="No Iniciado">No Iniciado</option>
+            <option value="En Progreso">En Progreso</option>
             <option value="Finalizado">Terminado</option>
           </select>
         </div>

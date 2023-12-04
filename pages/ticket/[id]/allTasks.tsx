@@ -136,15 +136,15 @@ export default function TaskswithTicket() {
 
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  let fetch_url = `https://back-proyectos-psa-2.onrender.com/tareas`;
+  /*let fetch_url = `https://back-proyectos-psa-2.onrender.com/tareas`;
   let id_ticket: string = "0";
   if (router.query.id) {
     id_ticket = Array.isArray(router.query.id)
       ? router.query.id[0]
       : router.query.id;
     fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}/notmytasks`;
-  }
-  //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
+  }*/
+  const fetch_url = "https://back-proyectos-psa-2.onrender.com/tareas"
   useEffect(() => {
     //setIsLoading(true);
 
@@ -365,7 +365,7 @@ export default function TaskswithTicket() {
           <input
             className="py-1 px-2 bg-sky-50"
             type="text"
-            placeholder="Buscar por nombre"
+            placeholder="Buscar por titulo"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearchName(e.target.value);
             }}
@@ -383,7 +383,7 @@ export default function TaskswithTicket() {
 
       <div className="mt-8 flex flex-col justify-center">
         <ListadoItem
-          tareas={data}
+          tareas={data.filter(tarea => tarea.titulo.toLowerCase().includes(searchName.toLowerCase()))}
           //estado={"Sin Comenzar"}
           //estadoLabel={"Sin comenzar"}
           onClick={handleTaskSelection}

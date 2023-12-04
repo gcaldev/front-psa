@@ -618,7 +618,7 @@ export default function Tickets() {
                 console.log("lololo",tarea.taskId);
                 const fullName = `${tarea.taskId}`;
                 return (
-                  <option id={tarea.taskId} value={fullName}>
+                  <option id={tarea.taskId.toString()} value={fullName}>
                     {fullName}
                   </option>
                 );

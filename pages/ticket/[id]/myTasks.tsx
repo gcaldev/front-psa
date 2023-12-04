@@ -120,7 +120,6 @@ function buscarNombredeProyecto(
 
   return proyectoEncontrado ? proyectoEncontrado.nombre : proyectoId;
 }
-
 export default function TaskswithTicket() {
   const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
   const [tareas, setTareas] = useState<Tarea[]>([]);
@@ -128,10 +127,7 @@ export default function TaskswithTicket() {
   const [proyectos, setProyectos] = useState<Proyecto[]>();
   const [filteredList, setFilteredList] = useState<Tarea[] | null>(null);
   const [searchName, setSearchName] = useState<string>("");
-  const [taskticketInfo, setTaskTicketInfo] = useState({
-    taskId: "",
-    ticketId: "",
-  });
+
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
@@ -147,9 +143,10 @@ export default function TaskswithTicket() {
     id_ticket = Array.isArray(router.query.id)
       ? router.query.id[0]
       : router.query.id;
-    fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}/mytasks`;
-  }
+   }
+  fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}/mytasks`;
 
+  //const fetch_url = "https://back-proyectos-psa-2.onrender.com/tareas"
   //const fetch_url = "https://soporte-psa-lor9.onrender.com/tickets"
   const [asociaciones, setAssociaciones] = useState<TaskTicketAsoc[]>([]);
   useEffect(() => {
@@ -357,7 +354,7 @@ export default function TaskswithTicket() {
           <input
             className="py-1 px-2 bg-sky-50"
             type="text"
-            placeholder="Buscar por nombre"
+            placeholder="Buscar por titulo"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearchName(e.target.value);
             }}
@@ -375,7 +372,7 @@ export default function TaskswithTicket() {
 
       <div className="mt-8 flex flex-col justify-center">
         <ListadoItem
-          tareas={data}
+          tareas={data.filter(tarea => tarea.titulo.toLowerCase().includes(searchName.toLowerCase()))}
           //estado={"Sin Comenzar"}
           //estadoLabel={"Sin comenzar"}
           onClick={handleTaskSelection}

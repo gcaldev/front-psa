@@ -35,8 +35,8 @@ export interface Ticket {
   version_id: string
 }
 export interface Tarea {
-  projectIid: string;
-  estado: "Sin Comenzar" | "En Progreso" | "Finalizado" | "Bloqueado";
+  projectId: string;
+  estado: "No Iniciado" | "En Progreso" | "Finalizado" | "Bloqueado";
   fechaInicio: string;
   fechaFin: string;
   prioridad: string;

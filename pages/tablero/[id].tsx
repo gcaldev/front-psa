@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useFetch from "@/hooks/useFetch";
 import { Tarea } from "@/types/types";
+import { PROJECT_MODULE_URL } from "@/env-vars";
 
 type PreviewTareaType = {
   estado: string;
@@ -27,14 +28,14 @@ const Tarea = ({
   id,
   onClick,
 }: PreviewTareaType & { onClick?: any }): JSX.Element => {
-  const diasDesdeInicio = (fechaInicio: string): string => {
+  const diasDesdeInicio = (fechaInicio: string): string | null => {
     const fechaPasada = new Date(fechaInicio).getTime();
     const fechaActual = new Date().getTime();
 
     const milisegundosPasados = fechaActual - fechaPasada;
 
     const diasPasados = Math.floor(milisegundosPasados / (1000 * 60 * 60 * 24));
-
+    if (diasPasados < 0) return null;
     return `${diasPasados}d`;
   };
 
@@ -84,8 +85,8 @@ export default function TableroLayout() {
   const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos/${router.query.id}/tareas`;
-  console.log(data);
+  const url = `${PROJECT_MODULE_URL}/proyectos/${router.query.id}/tareas`;
+
   useEffect(() => {
     if (router.isReady) {
       fetchData(url);
@@ -149,7 +150,7 @@ export default function TableroLayout() {
   };
 
   const deleteTask = (id: string, onSuccess?: Function) => {
-    const deleteUrl = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/${id}`;
+    const deleteUrl = `${PROJECT_MODULE_URL}/tareas/${id}`;
     const options = {
       method: "DELETE",
       headers: {
@@ -158,7 +159,6 @@ export default function TableroLayout() {
     };
     setDeleteLoading(true);
     fetch(deleteUrl, options)
-      .then((res) => res.json())
       .then((res) => {
         setDeleteLoading(false);
         fetchData(url, "GET");
@@ -175,7 +175,7 @@ export default function TableroLayout() {
             <h1 className="text-3xl font-bold">Tablero</h1>
             <Link
               className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-              href={`/tarea?project_id=${router.query.id}`}
+              href={`/tarea?projectId=${router.query.id}`}
             >
               Crear tarea ✚
             </Link>
@@ -183,14 +183,14 @@ export default function TableroLayout() {
           <div className="flex-1 grid grid-cols-4 gap-8 my-8 bg-zinc-100 gap-8">
             <ItemTablero
               tareas={data}
-              estado={"Sin Comenzar"}
-              estadoLabel={"Sin comenzar"}
+              estado={"No Iniciado"}
+              estadoLabel={"No Iniciado"}
               onClick={handleTaskSelection}
             />
             <ItemTablero
               tareas={data}
               estado={"En Progreso"}
-              estadoLabel={"En progreso"}
+              estadoLabel={"En Progreso"}
               onClick={handleTaskSelection}
             />
             <ItemTablero
@@ -259,7 +259,7 @@ export default function TableroLayout() {
             className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
             href={`/tarea/${encodeURIComponent(
               selectedTask?.id ?? ""
-            )}?project_id=${selectedTask?.projectIid}`}
+            )}?projectId=${selectedTask?.projectId}`}
           >
             Editar
           </Link>

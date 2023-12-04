@@ -9,7 +9,6 @@ export default function UpdateTaskLayout() {
 
   useEffect(() => {
     if (router.isReady) {
-      console.log(router.query, "router.query");
       setIsLoading(false);
       setProjectId(router.query.id as string);
     }

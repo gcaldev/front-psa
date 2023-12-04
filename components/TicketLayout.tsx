@@ -187,7 +187,7 @@ export default function TicketLayout({
       setExtraMessage("No se puede crear o guardar un ticket sin prioridad")
       setShowExtraMessage(true);
     } else {
-      //setIsLoading(true);
+      setIsLoading(true);
 
       const method = createsTicket ? "POST" : "PUT";
       const body = createsTicket ? {...ticketInfo, id: undefined} : ticketInfo;
@@ -207,6 +207,7 @@ export default function TicketLayout({
       console.log(options, "INFO");
       fetch(url, options)
           .then((res) => {
+            setIsLoading(false);
             createsTicket
                   ? setExtraMessage("Ticket creado con éxito ")
                   : setExtraMessage("Ticket modificado con éxito");

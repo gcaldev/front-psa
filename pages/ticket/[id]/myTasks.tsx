@@ -127,7 +127,7 @@ export default function TaskswithTicket() {
   const [proyectos, setProyectos] = useState<Proyecto[]>();
   const [filteredList, setFilteredList] = useState<Tarea[] | null>(null);
   const [searchName, setSearchName] = useState<string>("");
-
+  const [edited, setEdited] = useState<boolean>(false);
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
@@ -241,14 +241,14 @@ export default function TaskswithTicket() {
       },
     };
     fetch(url, options)
-      .then((res) => res.json())
       .then((res) => {
         setShow(false);
         setWantsToDelete(false);
         setSelectedTask(null);
-        location.reload();
+        setEdited(true);
       })
       .catch((err) => {
+        alert(err);
         setShow(false);
         setWantsToDelete(false);
         setSelectedTask(null);
@@ -368,6 +368,12 @@ export default function TaskswithTicket() {
         >
           Crear Tarea ✚
         </Link>
+        <Link
+            className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
+            href={`/ticket/${id_ticket}/allTasks`}
+        >
+          Asociar Tarea ✚
+        </Link>
       </div>
 
       <div className="mt-8 flex flex-col justify-center">
@@ -471,6 +477,32 @@ export default function TaskswithTicket() {
               }}
             >
               Cancelar
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+          className={"grid border border-black p-8"}
+          show={edited}
+          onClick={() => {
+            setShow(false);
+            setWantsToDelete(false);
+            setSelectedTask(null);
+            setEdited(false);
+          }}
+      >
+        <div className="flex flex-col">
+          <div className="mt-2">
+            <p className="font-bold mb-4 mt-4 text-center">
+              Se ha borrado la asociación.
+            </p>
+          </div>
+          <div className="flex flex-1 justify-center mt-7 items-end gap-8 items-center">
+            <button
+                className="bg-red-500	hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
+                onClick={() => location.reload()}
+            >
+              Confirmar
             </button>
           </div>
         </div>

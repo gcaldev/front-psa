@@ -231,13 +231,13 @@ export default function Tickets() {
     const [recursos, setRecursos] = useState<Recurso[]>();
     const [clientes, setClientes] = useState<Cliente[]>();
     const [filteredList, setFilteredList] = useState<Ticket[] | null>(null);
-    const [searchName, setSearchName] = useState<string>("");    
-    
+    const [searchName, setSearchName] = useState<string>("");
+    const [showExtraMessage, setShowExtraMessage] = useState<boolean>(false);
     const router = useRouter();
     const [show, setShow] = useState<boolean>(false);
     const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
     const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
-   
+    const [extraMessage, setExtraMessage] = useState<string>('');
     const { data, error, loading, fetchData } = useFetch<Ticket[]>();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
     var product_id = '0';
@@ -494,11 +494,13 @@ export default function Tickets() {
     };
     setDeleteLoading(true);
     fetch(deleteUrl, options)
-        .then((res) => res.json())
         .then((res) => {
+        setWantsToDelete(false);
+        setSelectedTicket(null);
+        setShow(false);
         setDeleteLoading(false);
-        fetchData(fetch_url, "GET");
-        onSuccess?.();
+        setExtraMessage("El ticket ha sido eliminado con éxito");
+        setShowExtraMessage(true);
         })
         .catch((err) => location.reload());
     };
@@ -703,7 +705,29 @@ export default function Tickets() {
           </div>
         </div>
       </Modal>
-
+          <Modal
+              className={"grid border border-black p-8"}
+              show={showExtraMessage}
+              onClick={() => {
+                  setShowExtraMessage(false);
+              }}
+          >
+              <div className="flex flex-col">
+                  <div className="mt-2">
+                      <p className="mb-5">
+                          {extraMessage}
+                      </p>
+                  </div>
+                  <div className="flex flex-1 justify-center mt-7 items-end gap-8 items-center">
+                      <button
+                          className="bg-green-500	hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
+                          onClick={() => location.reload()}
+                      >
+                          Confirmar
+                      </button>
+                  </div>
+              </div>
+          </Modal>
 
 
       </div>

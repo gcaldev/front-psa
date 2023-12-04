@@ -132,18 +132,17 @@ export default function TaskswithTicket() {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
+  const [edited, setEdited] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
 
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  /*let fetch_url = `https://back-proyectos-psa-2.onrender.com/tareas`;
   let id_ticket: string = "0";
   if (router.query.id) {
     id_ticket = Array.isArray(router.query.id)
-      ? router.query.id[0]
-      : router.query.id;
-    fetch_url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}/notmytasks`;
-  }*/
+        ? router.query.id[0]
+        : router.query.id;
+  }
   const fetch_url = "https://back-proyectos-psa-2.onrender.com/tareas"
   useEffect(() => {
     //setIsLoading(true);
@@ -255,8 +254,7 @@ export default function TaskswithTicket() {
           setShow(false);
           setWantsToDelete(false);
           setSelectedTask(null);
-          handleSuccessAssociation();
-          location.reload();
+          setEdited(true);
         })
         .catch((err) => {
           setShow(false);
@@ -379,6 +377,12 @@ export default function TaskswithTicket() {
         >
           Crear Tarea ✚
         </Link>
+        <Link
+            className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
+            href={`/ticket/${id_ticket}/myTasks`}
+        >
+          Ver Tareas Asociadas
+        </Link>
       </div>
 
       <div className="mt-8 flex flex-col justify-center">
@@ -486,6 +490,32 @@ export default function TaskswithTicket() {
               }}
             >
               Cancelar
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+          className={"grid border border-black p-8"}
+          show={edited}
+          onClick={() => {
+            setShow(false);
+            setWantsToDelete(false);
+            setSelectedTask(null);
+            setEdited(false);
+          }}
+      >
+        <div className="flex flex-col">
+          <div className="mt-2">
+            <p className="font-bold mb-4 mt-4 text-center">
+              Se ha asignado la tarea al ticket con éxito
+            </p>
+          </div>
+          <div className="flex flex-1 justify-center mt-7 items-end gap-8 items-center">
+            <button
+                className="bg-green-500	hover:bg-greeb-600 text-white font-bold py-1 px-4 rounded"
+                onClick={() => location.reload()}
+            >
+              Confirmar
             </button>
           </div>
         </div>

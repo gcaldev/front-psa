@@ -206,7 +206,6 @@ export default function TicketLayout({
       //squad-7-psa-2023-2c/server-squad-7/tickets/${id_ticket}`;
       console.log(options, "INFO");
       fetch(url, options)
-          .then((res) => res.json())
           .then((res) => {
             createsTicket
                   ? setExtraMessage("Ticket creado con éxito ")

@@ -12,7 +12,7 @@ export interface Cliente {
 
 export interface Producto {
   id: string
-  Producto: string
+  producto: string
 }
 
 export interface Version {

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import TicketGridRow from "@/components/ticketGridRow"; //traer ticketGrindRow
 import { useRouter } from 'next/router';
-import {Ticket, Tarea, TaskTicketAsoc, Proyecto, Recurso, Cliente} from "@/types/types";
+import {Ticket, Tarea, TaskTicketAsoc, Producto, Recurso, Cliente, Version} from "@/types/types";
 import useFetch from "@/hooks/useFetch";
 import TaskLayout from "@/components/TaskLayout";
 
@@ -223,6 +223,19 @@ function addSpaces(textoLargo: String | null | undefined): String{
     }
     return textoFormateado;
 }
+function returnProdAndVers(productId: string | null | undefined,
+                           versionId: string | null | undefined,
+                           versions: Version[] | null | undefined,
+                           product: Producto | null | undefined): String {
+    if(!productId || !versionId || !versions || !product) {
+        return '';
+    }
+    const versionCorrecta = versions.find(version => parseInt(versionId,10) == parseInt(version.id,10));
+    if (!versionCorrecta)
+        return '';
+
+    return 'Producto: ' + product.producto + ', Version: ' + versionCorrecta.version;
+}
 export default function Tickets() {
     
     const [listadoTareas, setListadoTareas] = useState<Tarea[]>([]);
@@ -240,6 +253,8 @@ export default function Tickets() {
     const [extraMessage, setExtraMessage] = useState<string>('');
     const { data, error, loading, fetchData } = useFetch<Ticket[]>();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+    const [thisProduct, setThisProduct] = useState<Producto>();
+    const [thisVersion, setVersions] = useState<Version[]>();
     var product_id = '0';
     var version_id = '0';
     if (typeof window !== 'undefined') {
@@ -284,6 +299,44 @@ export default function Tickets() {
             .then((res) => res.json())
             .then((res) => {
                 setClientes(res);
+                ///setIsLoading(false);
+            })
+            .catch((err) => router.push("/error"));
+    }, []);
+    useEffect(() => {
+        //setIsLoading(true);
+
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `https://my-json-server.typicode.com/nicolasgirardi/productos/productos/${product_id}`;
+
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setThisProduct(res);
+                ///setIsLoading(false);
+            })
+            .catch((err) => router.push("/error"));
+    }, []);
+    useEffect(() => {
+        //setIsLoading(true);
+
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `https://my-json-server.typicode.com/nicolasgirardi/productos/productos/${product_id}/versiones/`;
+
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setVersions(res);
                 ///setIsLoading(false);
             })
             .catch((err) => router.push("/error"));
@@ -525,6 +578,7 @@ export default function Tickets() {
     return (
       <div className="flex-1">
         <h1 className="text-3xl font-bold">Listado De Tickets</h1>
+          <h1 className="text-2xl font-bold mt-2">{returnProdAndVers(product_id,version_id,thisVersion,thisProduct)}</h1>
         <div className="flex justify-between items-center pt-8">
           <form
             onSubmit={handleSearch}

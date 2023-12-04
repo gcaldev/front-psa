@@ -84,9 +84,12 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
     const validations = {
       estado: projectInfo.estado === DEFAULT_SELECT_VALUE,
       lider: false,
-      fechaInicio:
-        new Date(projectInfo.fechaInicio as string) >
-        new Date(projectInfo.fechaFin as string),
+      fechaInicio: Boolean(
+        projectInfo.fechaInicio &&
+          projectInfo.fechaFin &&
+          new Date(projectInfo.fechaInicio as string) >
+            new Date(projectInfo.fechaFin as string)
+      ),
       fechaFin: false,
       nombre: !projectInfo.nombre,
     };

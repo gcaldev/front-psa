@@ -130,7 +130,11 @@ export default function TaskLayout({
       estado: taskInfo.estado === DEFAULT_SELECT_VALUE,
       asignado: false,
       prioridad: taskInfo.prioridad === DEFAULT_SELECT_VALUE,
-      fechaInicio: new Date(taskInfo.fechaInicio) > new Date(taskInfo.fechaFin),
+      fechaInicio: Boolean(
+        taskInfo.fechaInicio &&
+          taskInfo.fechaFin &&
+          new Date(taskInfo.fechaInicio) > new Date(taskInfo.fechaFin)
+      ),
       fechaFin: false,
       titulo: !taskInfo.titulo,
       descripcion: !taskInfo.descripcion,

@@ -47,7 +47,7 @@ export default function Home() {
                 </Link>
             </li>
             <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
-                <Link href="/home" className="text-3xl">
+                <Link href="/nyi" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">👤</h1>
                         <h1 className="font-semibold">Clientes</h1>
@@ -55,7 +55,7 @@ export default function Home() {
                 </Link>
             </li>
             <li className="bg-zinc-200 hover:bg-zinc-100 px-4 py-14 border rounded w-[200px] h-[200px]">
-                <Link href="/home" className="text-3xl">
+                <Link href="/nyi" className="text-3xl">
                     <div className="text-center">
                         <h1 className="text-4xl mb-2">👥</h1>
                         <h1 className="font-semibold">Usuarios</h1>

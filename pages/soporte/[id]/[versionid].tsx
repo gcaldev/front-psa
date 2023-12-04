@@ -379,7 +379,7 @@ export default function Tickets() {
       };
     
     const handleTicketTaskAsoc = async (id?: string) => {
-          const url_proyectos = ` https://my-json-server.typicode.com/gcaldev/psa-mock/proyectos,`; //cambiar luego a ulr
+          const url_proyectos = ` https://back-proyectos-psa-2.onrender.com/proyectos,`; //cambiar luego a ulr
           console.log("tarea_id en handledelteticket:",id )
           const closeModal = () => {
               //setShow(false);
@@ -433,7 +433,7 @@ export default function Tickets() {
        //PREOBLMA, NO SE PUEDEN DEFINIR constantes en foreach
        //probelma 2 en map no ppuedo tener otro fetch
 
-        //const url_fetch_tareas = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/`;
+        //const url_fetch_tareas = `https://back-proyectos-psa-2.onrender.com/tareas/`;
         
         //LEEEEEEEEER
         //no se como hacer esto, por cada fecth me trae una sola tarea y x cada sola tarea necesito
@@ -674,11 +674,11 @@ export default function Tickets() {
         <div className="flex flex-col">
           <div className="border border-black p-4 mt-2">
             <p className="font-bold mb-4 mt-4 text-center">
-              ¿Está seguro de que desea eliminar la tarea seleccionada?
+              ¿Está seguro de que desea eliminar el ticket?
             </p>
             <p className="mb-5">
               Esta acción no se puede deshacer y toda la información asociada a
-              esta tarea se perderá. Por favor, confirme su decisión antes de
+              este ticket se perderá. Por favor, confirme su decisión antes de
               proceder.
             </p>
           </div>

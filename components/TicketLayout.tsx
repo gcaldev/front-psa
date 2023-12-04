@@ -250,11 +250,13 @@ export default function TicketLayout({
               setTicketInfo((prev) => ({ ...prev, estado: e.target.value }))
             }
           >
-            <option value="Sin Comenzar">Abierto</option>
-            <option value="En Progreso">En progreso</option>
-            <option value="Finalizado">En desarrollo</option>
-            <option value="implementacion">En implementacion</option>
-            <option value="Cerrado">Cerrado</option>
+            <option value="Abiertor">Abierto</option>
+            <option value="En progreso">En progreso</option>
+            <option value="En desarrollo">En desarrollo</option>
+            <option value="En implementacion">En implementacion</option>
+            <option value="Esperando al cliente">Esperando al cliente</option>
+            <option value="Bloqueado">Bloqueado</option>
+            <option value="Resuelto">Resuelto</option>
           </select>
         </div>
         <div className="col-span-2">

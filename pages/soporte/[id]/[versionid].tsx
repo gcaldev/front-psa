@@ -535,7 +535,6 @@ export default function Tickets() {
         closeModal();
     }
     };
-    
     const deleteTicket = (id: string, onSuccess?: Function) => {
     // const deleteUrl = "https://my-json-server.typicode.com/squad-7-psa-2023-2c/server-squad-7/tickets"
     const deleteUrl = `https://soporte-psa-lor9.onrender.com//ticket/${id}`;
@@ -545,7 +544,7 @@ export default function Tickets() {
         "Content-Type": "application/json",
         },
     };
-    //setDeleteLoading(true);
+    setDeleteLoading(true);
     fetch(deleteUrl, options)
         .then((res) => {
         setWantsToDelete(false);

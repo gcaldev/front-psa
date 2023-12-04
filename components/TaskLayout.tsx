@@ -6,6 +6,16 @@ import { useEffect, useState } from "react";
 
 const DEFAULT_SELECT_VALUE = "Elegir";
 
+type InfoValidationType = {
+  fechaInicio: boolean;
+  fechaFin: boolean;
+  estado: boolean;
+  prioridad: boolean;
+  asignado: boolean;
+  titulo: boolean;
+  descripcion: boolean;
+};
+
 export default function TaskLayout({
   id = "",
   projectId,
@@ -15,6 +25,16 @@ export default function TaskLayout({
 }) {
   const createsTask = !id;
   const router = useRouter();
+  const [infoValidation, setInfoValidation] = useState<InfoValidationType>({
+    fechaInicio: false,
+    fechaFin: false,
+    estado: false,
+    prioridad: false,
+    asignado: false,
+    titulo: false,
+    descripcion: false,
+  });
+
   const [taskInfo, setTaskInfo] = useState({
     projectId: projectId,
     fechaInicio: "",
@@ -106,6 +126,24 @@ export default function TaskLayout({
   }
 
   const handleTaskSubmit = () => {
+    const validations = {
+      estado: taskInfo.estado === DEFAULT_SELECT_VALUE,
+      asignado: false,
+      prioridad: taskInfo.prioridad === DEFAULT_SELECT_VALUE,
+      fechaInicio: new Date(taskInfo.fechaInicio) > new Date(taskInfo.fechaFin),
+      fechaFin: false,
+      titulo: !taskInfo.titulo,
+      descripcion: !taskInfo.descripcion,
+    };
+
+    setInfoValidation(validations);
+
+    const invalidForm = Object.values(validations).some(
+      (validation) => validation
+    );
+
+    if (invalidForm) return;
+
     setIsLoading(true);
 
     const method = createsTask ? "POST" : "PUT";
@@ -114,6 +152,8 @@ export default function TaskLayout({
       id: createsTask ? undefined : taskInfo.id,
       fechaInicio: taskInfo.fechaInicio ?? undefined,
       fechaFin: taskInfo.fechaFin ?? undefined,
+      asignado:
+        taskInfo.asignado !== DEFAULT_SELECT_VALUE ? taskInfo.asignado : null,
     };
     const options = {
       method,
@@ -156,6 +196,12 @@ export default function TaskLayout({
               setTaskInfo((prev) => ({ ...prev, titulo: e.target.value }))
             }
           />
+
+          {infoValidation.titulo && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Completa un titulo
+            </label>
+          )}
         </div>
         <div className="col-span-3">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -171,6 +217,11 @@ export default function TaskLayout({
             }
             value={taskInfo.fechaInicio}
           />
+          {infoValidation.fechaInicio && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              La fecha de inicio debe ser previa a la de finalización
+            </label>
+          )}
         </div>
         <div className="col-span-3">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -205,6 +256,11 @@ export default function TaskLayout({
             <option value="Finalizado">Terminado</option>
             <option value="Bloqueado">Bloqueado</option>
           </select>
+          {infoValidation.estado && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Selecciona un estado
+            </label>
+          )}
         </div>
         <div className="col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -223,6 +279,11 @@ export default function TaskLayout({
             <option value="Media">Media</option>
             <option value="Alta">Alta</option>
           </select>
+          {infoValidation.prioridad && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Selecciona una prioridad
+            </label>
+          )}
         </div>
         <div className="col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -259,6 +320,11 @@ export default function TaskLayout({
             }
             value={taskInfo.descripcion}
           ></textarea>
+          {infoValidation.descripcion && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Completa una descripción
+            </label>
+          )}
         </div>
       </div>
       <div></div>

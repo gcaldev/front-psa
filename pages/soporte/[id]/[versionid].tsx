@@ -777,7 +777,7 @@ export default function Tickets() {
                           className="bg-green-500	hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
                           onClick={() => location.reload()}
                       >
-                          Confirmar
+                          OK
                       </button>
                   </div>
               </div>

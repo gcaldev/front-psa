@@ -418,7 +418,7 @@ export default function TicketLayout({
                 className="bg-green-500	hover:bg-green-600 text-white font-bold py-1 px-4 rounded"
                 onClick={() => setShowExtraMessage(false)}
             >
-              Confirmar
+              OK
             </button>
           </div>
         </div>
@@ -453,7 +453,7 @@ export default function TicketLayout({
                   );
                 }}
             >
-              Confirmar
+              OK
             </button>
           </div>
         </div>

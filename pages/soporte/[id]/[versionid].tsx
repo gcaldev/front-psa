@@ -667,19 +667,6 @@ export default function Tickets() {
             {/* donde dice asoc deberia ir tareas pero como puse arriba 
             no se como guardar TODAS las atreas en el ;istado de tareas 
             ya que fetch con eltaskId nos trae una a la vez */}
-            
-            {
-              asoc.map((tarea) => {
-                console.log("lololo",tarea.taskId);
-                const fullName = `${tarea.taskId}`;
-                return (
-                  <option id={tarea.taskId.toString()} value={fullName}>
-                    {fullName}
-                  </option>
-                );
-              })
-                        
-            }
               
           </div>
 

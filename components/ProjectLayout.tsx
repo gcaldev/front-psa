@@ -6,6 +6,14 @@ import { PROJECT_MODULE_URL } from "@/env-vars";
 
 const DEFAULT_SELECT_VALUE = "Elegir";
 
+type InfoValidationType = {
+  fechaInicio: boolean;
+  fechaFin: boolean;
+  estado: boolean;
+  lider: boolean;
+  nombre: boolean;
+};
+
 export default function ProjectLayout({ id = "" }: { id?: string }) {
   const router = useRouter();
   const createsProject = !id;
@@ -17,6 +25,13 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
     id: "",
     estado: DEFAULT_SELECT_VALUE,
     lider: DEFAULT_SELECT_VALUE,
+  });
+  const [infoValidation, setInfoValidation] = useState<InfoValidationType>({
+    fechaInicio: false,
+    fechaFin: false,
+    estado: false,
+    lider: false,
+    nombre: false,
   });
   const [resources, setResources] = useState<Recurso[]>([]);
   const [originalProjectName, setOriginalProjectName] = useState<string>("");
@@ -66,6 +81,24 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
   }, [router.isReady]);
 
   const handleProjectSubmit = () => {
+    const validations = {
+      estado: projectInfo.estado === DEFAULT_SELECT_VALUE,
+      lider: false,
+      fechaInicio:
+        new Date(projectInfo.fechaInicio as string) >
+        new Date(projectInfo.fechaFin as string),
+      fechaFin: false,
+      nombre: !projectInfo.nombre,
+    };
+
+    setInfoValidation(validations);
+
+    const invalidForm = Object.values(validations).some(
+      (validation) => validation
+    );
+
+    if (invalidForm) return;
+
     setIsLoading(true);
 
     const method = createsProject ? "POST" : "PUT";
@@ -160,6 +193,11 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
               setProjectInfo((prev) => ({ ...prev, nombre: e.target.value }))
             }
           />
+          {infoValidation.nombre && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Completa un nombre
+            </label>
+          )}
         </div>
         <div className="col-span-3">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -178,6 +216,11 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
             }
             value={projectInfo.fechaInicio}
           />
+          {infoValidation.fechaInicio && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              La fecha de inicio debe ser previa a la de finalización
+            </label>
+          )}
         </div>
         <div className="col-span-3">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -211,10 +254,15 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
             <option value="En Progreso">En Progreso</option>
             <option value="Finalizado">Terminado</option>
           </select>
+          {infoValidation.estado && (
+            <label className="block mt-2 text-sm font-medium text-red-500">
+              Selecciona un estado
+            </label>
+          )}
         </div>
         <div className="col-span-3">
           <label className="block mb-2 text-sm font-medium text-gray-900">
-            Asignado
+            Lider
           </label>
           <select
             id="countries"

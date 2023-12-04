@@ -132,7 +132,7 @@ export default function TaskswithTicket() {
   const [show, setShow] = useState<boolean>(false);
   const [wantsToDelete, setWantsToDelete] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
-
+  const [thisTicket, setThisTicket] = useState<Ticket | null>(null);
   const { data, error, loading, fetchData } = useFetch<Tarea[]>();
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [loadedTasks, setLoadedTasks] = useState<boolean>(false);
@@ -167,6 +167,25 @@ export default function TaskswithTicket() {
         ///setIsLoading(false);
       })
       .catch((err) => router.push("/error"));
+  }, []);
+  useEffect(() => {
+    //setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const url = `https://soporte-psa-lor9.onrender.com/ticket/${id_ticket}`;
+
+    fetch(url, options)
+        .then((res) => res.json())
+        .then((res) => {
+          setThisTicket(res);
+          ///setIsLoading(false);
+        })
+        .catch((err) => router.push("/error"));
   }, []);
   useEffect(() => {
     if (router.isReady) {
@@ -346,6 +365,7 @@ export default function TaskswithTicket() {
   return (
     <div className="flex-1">
       <h1 className="text-3xl font-bold">Listado De Tareas Asociadas</h1>
+      <h2 className="text-1xl font-bold mt-2">al ticket: {thisTicket?.nombre}</h2>
       <div className="flex justify-between items-center pt-8">
         <form
           onSubmit={handleSearch}

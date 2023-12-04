@@ -9,7 +9,7 @@ export default function Error() {
       </h1>
       <Link
         className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
-        href="/proyectos"
+        href="/"
       >
         Volver a inicio
       </Link>

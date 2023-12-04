@@ -1,3 +1,4 @@
+import { PROJECT_MODULE_URL } from "@/env-vars";
 import { Recurso, Tarea } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,15 +8,15 @@ const DEFAULT_SELECT_VALUE = "Elegir";
 
 export default function TaskLayout({
   id = "",
-  project_id,
+  projectId,
 }: {
   id?: string;
-  project_id: string;
+  projectId: string;
 }) {
   const createsTask = !id;
   const router = useRouter();
   const [taskInfo, setTaskInfo] = useState({
-    project_id,
+    projectId: projectId,
     fechaInicio: "",
     fechaFin: "",
     estado: DEFAULT_SELECT_VALUE,
@@ -26,10 +27,7 @@ export default function TaskLayout({
     descripcion: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(!createsTask);
-  console.log({
-    id,
-    project_id,
-  });
+
   const [resources, setResources] = useState<Recurso[]>([]);
 
   useEffect(() => {
@@ -50,10 +48,7 @@ export default function TaskLayout({
         setIsLoading(false);
       })
       .catch((err) => router.push("/error"));
-      //console.log("aa",resources)
-
-    }, []);
-
+  }, []);
 
   useEffect(() => {
     if (createsTask) {
@@ -67,7 +62,7 @@ export default function TaskLayout({
         "Content-Type": "application/json",
       },
     };
-    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/${id}`;
+    const url = `${PROJECT_MODULE_URL}/tareas/${id}`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -78,24 +73,35 @@ export default function TaskLayout({
           fechaInicio: fechaInicio ?? "",
           fechaFin: fechaFin ?? "",
         });
-        console.log(res);
         setIsLoading(false);
       })
       .catch((err) => router.push("/error"));
   }, []);
 
   if (isLoading) {
-    return(
-        <div className="text-center py-40">
-            <div role="status">
-                <svg aria-hidden="true" className="inline w-22 h-22 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                </svg>
-                <span className="sr-only">Loading...</span>
-            </div>
-            <h1 className="text-2xl font-semibold mt-5">Cargando...</h1>
+    return (
+      <div className="text-center py-40">
+        <div role="status">
+          <svg
+            aria-hidden="true"
+            className="inline w-22 h-22 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            />
+          </svg>
+          <span className="sr-only">Loading...</span>
         </div>
+        <h1 className="text-2xl font-semibold mt-5">Cargando...</h1>
+      </div>
     );
   }
 
@@ -111,15 +117,17 @@ export default function TaskLayout({
       },
       body: JSON.stringify(body),
     };
-    const url = `https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/${id}`;
-    console.log(options, "INFO");
+    const url = createsTask
+      ? `${PROJECT_MODULE_URL}/tareas/${id}`
+      : `${PROJECT_MODULE_URL}/tareas`;
+
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
         router.push(
           createsTask
-            ? `/tarea-creada/${taskInfo.project_id}`
-            : `/tarea-actualizada/${taskInfo.project_id}`
+            ? `/tarea-creada/${taskInfo.projectId}`
+            : `/tarea-actualizada/${taskInfo.projectId}`
         );
       })
       .catch((err) => router.push("/error"));
@@ -250,7 +258,12 @@ export default function TaskLayout({
       </div>
       <div></div>
       <div className="flex justify-end items-center gap-4 mt-8">
-        <Link className="bg-zinc-0	hover:bg-zinc-100 text-black font-bold py-1 px-4 rounded" href={`/tablero/${project_id}`}>Volver a tablero</Link>
+        <Link
+          className="bg-zinc-0	hover:bg-zinc-100 text-black font-bold py-1 px-4 rounded"
+          href={`/tablero/${projectId}`}
+        >
+          Volver a tablero
+        </Link>
         <button
           className="bg-sky-500	hover:bg-cyan-600 text-white font-bold py-1 px-4 rounded"
           onClick={handleTaskSubmit}

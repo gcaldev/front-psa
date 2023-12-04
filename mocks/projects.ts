@@ -141,7 +141,7 @@ export const MANY_PROJECTS = [
 
 export const MANY_TASKS = [
     {
-      project_id: "1",
+      projectId: "1",
       estado: "Sin Comenzar",
       fechaInicio: "2023-10-25",
       fechaFin: "2023-11-01",
@@ -152,7 +152,7 @@ export const MANY_TASKS = [
       descripcion: "Desarrollar la funcionalidad de inicio de sesión en la aplicación.",
     },
     {
-      project_id: "2",
+      projectId: "2",
       estado: "En Progreso",
       fechaInicio: "2023-10-28",
       fechaFin: "2023-11-10",
@@ -163,7 +163,7 @@ export const MANY_TASKS = [
       descripcion: "Realizar mejoras en la interfaz de usuario para una experiencia más amigable.",
     },
     {
-      project_id: "3",
+      projectId: "3",
       estado: "Finalizado",
       fechaInicio: "2023-11-01",
       fechaFin: "2023-11-15",
@@ -174,7 +174,7 @@ export const MANY_TASKS = [
       descripcion: "Realizar ajustes para mejorar el rendimiento del servidor de la aplicación.",
     },
     {
-      project_id: "4",
+      projectId: "4",
       estado: "Bloqueado",
       fechaInicio: "2023-11-05",
       fechaFin: "2023-11-20",
@@ -185,7 +185,7 @@ export const MANY_TASKS = [
       descripcion: "Resolver problemas y bugs identificados en la versión anterior de la aplicación.",
     },
     {
-      project_id: "5",
+      projectId: "5",
       estado: "Sin Comenzar",
       fechaInicio: "2023-11-10",
       fechaFin: "2023-11-25",
@@ -196,7 +196,7 @@ export const MANY_TASKS = [
       descripcion: "Incorporar la capacidad de añadir comentarios a elementos específicos de la aplicación.",
     },
     {
-      project_id: "6",
+      projectId: "6",
       estado: "En Progreso",
       fechaInicio: "2023-11-15",
       fechaFin: "2023-11-30",
@@ -207,7 +207,7 @@ export const MANY_TASKS = [
       descripcion: "Crear un diseño atractivo y funcional para la página de inicio de la aplicación.",
     },
     {
-      project_id: "7",
+      projectId: "7",
       estado: "Finalizado",
       fechaInicio: "2023-11-20",
       fechaFin: "2023-12-05",
@@ -218,7 +218,7 @@ export const MANY_TASKS = [
       descripcion: "Establecer la configuración del servidor de correo electrónico para notificaciones automáticas.",
     },
     {
-      project_id: "8",
+      projectId: "8",
       estado: "Bloqueado",
       fechaInicio: "2023-11-25",
       fechaFin: "2023-12-10",
@@ -229,7 +229,7 @@ export const MANY_TASKS = [
       descripcion: "Realizar investigaciones y pruebas para integrar una API externa en la aplicación.",
     },
     {
-      project_id: "9",
+      projectId: "9",
       estado: "Sin Comenzar",
       fechaInicio: "2023-11-30",
       fechaFin: "2023-12-15",
@@ -240,7 +240,7 @@ export const MANY_TASKS = [
       descripcion: "Crear un módulo que presente estadísticas detalladas sobre el uso de la aplicación.",
     },
     {
-      project_id: "10",
+      projectId: "10",
       estado: "En Progreso",
       fechaInicio: "2023-12-05",
       fechaFin: "2023-12-20",
@@ -251,7 +251,7 @@ export const MANY_TASKS = [
       descripcion: "Integrar un sistema de notificaciones para informar a los usuarios sobre eventos importantes.",
     },
     {
-      project_id: "11",
+      projectId: "11",
       estado: "Finalizado",
       fechaInicio: "2023-12-10",
       fechaFin: "2023-12-25",
@@ -262,7 +262,7 @@ export const MANY_TASKS = [
       descripcion: "Permitir que la aplicación sea utilizada en varios idiomas.",
     },
     {
-      project_id: "12",
+      projectId: "12",
       estado: "Bloqueado",
       fechaInicio: "2023-12-15",
       fechaFin: "2023-12-30",
@@ -273,7 +273,7 @@ export const MANY_TASKS = [
       descripcion: "Identificar y corregir vulnerabilidades de seguridad en la aplicación.",
     },
     {
-      project_id: "13",
+      projectId: "13",
       estado: "Sin Comenzar",
       fechaInicio: "2023-12-20",
       fechaFin: "2024-01-05",
@@ -284,7 +284,7 @@ export const MANY_TASKS = [
       descripcion: "Crear un logotipo único y representativo para la marca de la aplicación.",
     },
     {
-      project_id: "14",
+      projectId: "14",
       estado: "En Progreso",
       fechaInicio: "2023-12-25",
       fechaFin: "2024-01-10",
@@ -295,7 +295,7 @@ export const MANY_TASKS = [
       descripcion: "Revisar y mejorar la documentación del usuario para una comprensión más fácil.",
     },
     {
-      project_id: "15",
+      projectId: "15",
       estado: "Finalizado",
       fechaInicio: "2023-12-30",
       fechaFin: "2024-01-15",
@@ -306,7 +306,7 @@ export const MANY_TASKS = [
       descripcion: "Migrar la base de datos de la aplicación a un servicio en la nube para mayor escalabilidad.",
     },
     {
-      project_id: "16",
+      projectId: "16",
       estado: "Bloqueado",
       fechaInicio: "2024-01-05",
       fechaFin: "2024-01-20",
@@ -317,7 +317,7 @@ export const MANY_TASKS = [
       descripcion: "Explorar y evaluar nuevas tecnologías que podrían beneficiar el desarrollo de la aplicación.",
     },
     {
-      project_id: "17",
+      projectId: "17",
       estado: "Sin Comenzar",
       fechaInicio: "2024-01-10",
       fechaFin: "2024-01-25",
@@ -328,7 +328,7 @@ export const MANY_TASKS = [
       descripcion: "Crear una funcionalidad que permita a los usuarios exportar sus datos en varios formatos.",
     },
     {
-      project_id: "18",
+      projectId: "18",
       estado: "En Progreso",
       fechaInicio: "2024-01-15",
       fechaFin: "2024-01-30",
@@ -339,7 +339,7 @@ export const MANY_TASKS = [
       descripcion: "Implementar un sistema de pago para funciones premium dentro de la aplicación.",
     },
     {
-      project_id: "19",
+      projectId: "19",
       estado: "Finalizado",
       fechaInicio: "2024-01-20",
       fechaFin: "2024-02-05",
@@ -350,7 +350,7 @@ export const MANY_TASKS = [
       descripcion: "Revisar y mejorar la eficiencia y legibilidad del código fuente de la aplicación.",
     },
     {
-      project_id: "20",
+      projectId: "20",
       estado: "Bloqueado",
       fechaInicio: "2024-01-25",
       fechaFin: "2024-02-10",

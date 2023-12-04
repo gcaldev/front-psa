@@ -489,6 +489,7 @@ export default function TaskswithTicket() {
             setWantsToDelete(false);
             setSelectedTask(null);
             setEdited(false);
+            location.reload();
           }}
       >
         <div className="flex flex-col">

@@ -107,6 +107,10 @@ export default function ProjectLayout({ id = "" }: { id?: string }) {
       id: createsProject ? undefined : projectInfo.id,
       fechaInicio: projectInfo.fechaInicio ?? undefined,
       fechaFin: projectInfo.fechaFin ?? undefined,
+      lider:
+        projectInfo.lider !== DEFAULT_SELECT_VALUE
+          ? projectInfo.lider
+          : undefined,
     };
 
     const options = {

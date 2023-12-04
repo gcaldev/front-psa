@@ -153,7 +153,9 @@ export default function TaskLayout({
       fechaInicio: taskInfo.fechaInicio ?? undefined,
       fechaFin: taskInfo.fechaFin ?? undefined,
       asignado:
-        taskInfo.asignado !== DEFAULT_SELECT_VALUE ? taskInfo.asignado : null,
+        taskInfo.asignado !== DEFAULT_SELECT_VALUE
+          ? taskInfo.asignado
+          : undefined,
     };
     const options = {
       method,

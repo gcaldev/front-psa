@@ -492,7 +492,7 @@ export default function Tickets() {
         "Content-Type": "application/json",
         },
     };
-    setDeleteLoading(true);
+    //setDeleteLoading(true);
     fetch(deleteUrl, options)
         .then((res) => {
         setWantsToDelete(false);
